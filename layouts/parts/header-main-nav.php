@@ -183,7 +183,14 @@
                             <a href="<?php echo $app->createUrl('auth'); ?>">Trocar Usuário</a>
                             <?php if(!empty($fake_options)) echo $fake_options; ?>
                         <?php endif; ?>
-                        <a href="<?php echo $app->createUrl('auth', 'logout'); ?>" class="logout-force">Sair</a>
+                        <a  href="<?php echo $app->createUrl('auth', 'logout'); ?>"
+                        <?php
+                            if (isset($app->config['auth.config']['auth_endpoint'])){
+                                $url_parsed = parse_url($app->config['auth.config']['auth_endpoint']);
+                                echo " class=\"logout-force\" remote-logout=\"".$url_parsed['scheme']."://".$url_parsed['host']."/logout\"";
+                            }
+                        ?>
+                        >Sair</a>
                     </li>
                 </ul>
             </li>
@@ -208,7 +215,7 @@
 </nav>
 
 <script type="text/javascript">
-    $('.logout-force').click(function(e){
-        $.get($(this).attr('href'));
+    $('.logout-force').click(function(){
+        $.get($(this).attr('remote-logout'));
     });
 </script>
