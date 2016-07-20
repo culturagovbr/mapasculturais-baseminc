@@ -5,31 +5,42 @@ use MapasCulturais\App;
 
 abstract class Theme extends BaseV1\Theme{
     abstract function getMetadataPrefix();
-    
+
     abstract protected function _getAgentMetadata();
     abstract protected function _getSpaceMetadata();
     abstract protected function _getEventMetadata();
     abstract protected function _getProjectMetadata();
-    
+
     static function getThemeFolder() {
         return __DIR__;
     }
-    
+
+    public function addEntityToJs(\MapasCulturais\Entity $entity) {
+        parent::addEntityToJs($entity);
+        $this->jsObject['entity']['tipologia_nivel1'] = $entity->tipologia_nivel1;
+        $this->jsObject['entity']['tipologia_nivel2'] = $entity->tipologia_nivel2;
+        $this->jsObject['entity']['tipologia_nivel3'] = $entity->tipologia_nivel3;
+    }
+
     protected function _init() {
         parent::_init();
         $app = App::i();
-        
+
+        $app->hook('view.render(agent/<<create|edit>>):before', function(){
+            $this->jsObject['agentTypes'] = require __DIR__ . '/tipologia-agentes.php';
+        });
+
         $app->hook('entity(<<Agent|Space|Event|Project>>).save:after', function() use ($app){
             if(!$this->getValidationErrors()){
                 $num = strtoupper(substr($this->entityType, 0, 2)) . '-' . $this->id;
                 $this->num_sniic = $num;
             }
         });
-        
+
         $app->hook('view.render(<<*>>):before', function() use($app) {
             $this->jsObject['angularAppDependencies'][] = 'entity.controller.agentTypes';
         });
-        
+
         $app->hook('template(<<space|agent|project|event>>.<<create|edit|single>>.name):after', function(){
             $this->enqueueScript('app', 'num-sniic', 'js/num-sniic.js');
             $this->part('num-sniic', ['entity' => $this->data->entity]);
@@ -42,14 +53,14 @@ abstract class Theme extends BaseV1\Theme{
         $app->hook('template(space.<<create|edit|single>>.tab-about-service):before', function(){
             $this->part('mais-campos', ['entity' => $this->data->entity]);
         });
-        
+
         // BUSCA POR NÚMERO SNIIC
         // adiciona o join do metadado
         $app->hook('repo(<<*>>).getIdsByKeywordDQL.join', function(&$joins, $keyword) {
             $joins .= "
-                LEFT JOIN 
-                        e.__metadata num_sniic 
-                WITH 
+                LEFT JOIN
+                        e.__metadata num_sniic
+                WITH
                         num_sniic.key = 'num_sniic'";
         });
 
@@ -57,14 +68,14 @@ abstract class Theme extends BaseV1\Theme{
         $app->hook('repo(<<*>>).getIdsByKeywordDQL.where', function(&$where, $keyword) {
             $where .= "OR lower(num_sniic.value) LIKE lower(:keyword)";
         });
-        
+
         // BUSCA POR NÚMERO MUNICIPIO
         // adiciona o join do metadado
         $app->hook('repo(<<*>>).getIdsByKeywordDQL.join', function(&$joins, $keyword) {
             $joins .= "
-                LEFT JOIN 
-                        e.__metadata En_Municipio 
-                WITH 
+                LEFT JOIN
+                        e.__metadata En_Municipio
+                WITH
                         En_Municipio.key = 'En_Municipio'";
         });
 
@@ -72,12 +83,12 @@ abstract class Theme extends BaseV1\Theme{
         $app->hook('repo(<<*>>).getIdsByKeywordDQL.where', function(&$where, $keyword) {
             $where .= "OR lower(En_Municipio.value) LIKE lower(:keyword)";
         });
-        
+
     }
-    
+
     public function includeAngularEntityAssets($entity) {
         parent::includeAngularEntityAssets($entity);
-        
+
         $this->enqueueScript('app', 'entity.controller.agentType', 'js/ng.entity.controller.agentTypes.js', ['entity.app']);
     }
 
@@ -86,7 +97,7 @@ abstract class Theme extends BaseV1\Theme{
         $this->jsObject['angularAppDependencies'][] = 'entity.directive.openingTime';
         $this->enqueueScript('app', 'entity.directive.openingTime', 'js/ng.entity.directive.openingTime.js', array('ng-mapasculturais'));
     }
-    
+
     public function register() {
         parent::register();
 
@@ -112,7 +123,7 @@ abstract class Theme extends BaseV1\Theme{
                     'label' => 'Nº SNIIC:',
                     'private' => false
                 ],
-                
+
                 'cnpj' => [
                     'label' => 'CNPJ',
                     'private' => false,
@@ -120,7 +131,7 @@ abstract class Theme extends BaseV1\Theme{
                         'v::cnpj()' => 'O CNPJ informado é inválido'
                     ]
                 ],
-                
+
                 'esfera' => [
                     'label' => 'Esfera',
                     'type' => 'select',
@@ -129,7 +140,7 @@ abstract class Theme extends BaseV1\Theme{
                         'Privada'
                     ]
                 ],
-                
+
                 'esfera_tipo' => [
                     'label' => 'Tipo de esfera',
                     'type' => 'select',
@@ -148,7 +159,7 @@ abstract class Theme extends BaseV1\Theme{
                         'Outra',
                     ],
                 ],
-                
+
                 'certificado' => [
                     'label' => 'Títulos e Certificados',
                     'type' => 'select',
@@ -187,30 +198,30 @@ abstract class Theme extends BaseV1\Theme{
                 ],
             ]
         ];
-                    
+
         $prefix = $this->getMetadataPrefix();
-                    
+
         foreach($this->_getAgentMetadata() as $key => $cfg){
             $key = $prefix . $key;
-            
+
             $metadata['MapasCulturais\Entities\Agent'][$key] = $cfg;
         }
-                    
+
         foreach($this->_getSpaceMetadata() as $key => $cfg){
             $key = $prefix . $key;
-            
+
             $metadata['MapasCulturais\Entities\Space'][$key] = $cfg;
         }
-                    
+
         foreach($this->_getEventMetadata() as $key => $cfg){
             $key = $prefix . $key;
-            
+
             $metadata['MapasCulturais\Entities\Event'][$key] = $cfg;
         }
-                    
+
         foreach($this->_getProjectMetadata() as $key => $cfg){
             $key = $prefix . $key;
-            
+
             $metadata['MapasCulturais\Entities\Project'][$key] = $cfg;
         }
 
