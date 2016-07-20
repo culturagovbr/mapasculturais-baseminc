@@ -150,6 +150,10 @@
                             <a class="add" href="<?php echo $app->createUrl('agent', 'create') ?>"></a>
                         </li>
                         <?php $this->applyTemplateHook('nav.dropdown.agents','after'); ?>
+                    <?php else: ?>
+                        <li>
+                        <a href="<?php echo $app->createUrl('agente', $app->user->id) ?>">Meu perfil</a>
+                        </li>
                     <?php endif; ?>
 
                     <?php if($app->isEnabled('spaces')): ?>
