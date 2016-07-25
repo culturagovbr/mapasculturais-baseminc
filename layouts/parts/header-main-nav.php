@@ -152,7 +152,7 @@
                         <?php $this->applyTemplateHook('nav.dropdown.agents','after'); ?>
                     <?php else: ?>
                         <li>
-                        <a href="<?php echo $app->createUrl('agente', $app->user->id) ?>">Meu perfil</a>
+                        <a href="<?php echo $app->createUrl('agente', $app->user->profile->id) ?>">Meu perfil</a>
                         </li>
                     <?php endif; ?>
 
