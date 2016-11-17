@@ -41,6 +41,19 @@
             <?php $this->applyTemplateHook('nav.panel.registrations','after'); ?>
         <?php endif; ?>
 
+        <?php if($app->isEnabled('subsite') && $app->user->is('saasAdmin')): ?>
+            <?php $this->applyTemplateHook('nav.panel.subsite','before'); ?>
+            <li><a <?php if($this->template == 'panel/subsite') echo 'class="active"'; ?> href="<?php echo $app->createUrl('panel', 'subsite') ?>"><span class="icon icon-subsite"></span> <?php $this->dict('entities: My Subsites') ?></a></li>
+            <?php $this->applyTemplateHook('nav.panel.subsite','after'); ?>
+        <?php endif; ?>
+
+
+        <?php if(($app->user->is('superAdmin')  || $app->user->is('admin') )): ?>
+            <?php $this->applyTemplateHook('nav.panel.listUsers','before'); ?>
+            <li><a <?php if($this->template == 'panel/list-users') echo 'class="active"'; ?> href="<?php echo $app->createUrl('panel', 'listUsers') ?>"><span class="icon icon-group"></span> Usuários e papéis</a></li>
+            <?php $this->applyTemplateHook('nav.panel.listUsers','after'); ?>
+        <?php endif; ?>
+
         <?php if($app->isEnabled('apps')): ?>
             <?php $this->applyTemplateHook('nav.panel.apps','before'); ?>
             <li><a <?php if($this->template == 'panel/apps') echo 'class="active"'; ?> href="<?php echo $app->createUrl('panel', 'apps') ?>"><span class="icon icon-api"></span> Meus Apps</a></li>
