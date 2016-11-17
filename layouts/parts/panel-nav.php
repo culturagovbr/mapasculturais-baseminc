@@ -15,7 +15,7 @@
             <?php $this->applyTemplateHook('nav.panel.agents','after'); ?>
         <?php else: ?>
             <li>
-                <a href="<?php echo $app->createUrl('agente', $app->user->id) ?>"><span class="icon icon-agent"></span> Meu perfil</a>
+                <a href="<?php echo $app->createUrl('agente', $app->user->profile->id) ?>"><span class="icon icon-agent"></span> Meu perfil</a>
             </li>
         <?php endif; ?>
 
