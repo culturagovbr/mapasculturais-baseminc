@@ -1,6 +1,6 @@
 <?php
 namespace BaseMinc;
-use MapasCulturais\Themes\Subsite;
+use Subsite;
 use MapasCulturais\App;
 
 abstract class Theme extends Subsite\Theme{
@@ -22,7 +22,7 @@ abstract class Theme extends Subsite\Theme{
         $this->jsObject['entity']['tipologia_nivel3'] = $entity->tipologia_nivel3;
     }
 
-    protected function _init() {
+    public function _init() {
         parent::_init();
         $app = App::i();
 
