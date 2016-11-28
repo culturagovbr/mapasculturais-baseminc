@@ -1,9 +1,9 @@
 <?php
 namespace BaseMinc;
-use MapasCulturais\Themes\BaseV1;
+use MapasCulturais\Themes\Subsite;
 use MapasCulturais\App;
 
-abstract class Theme extends BaseV1\Theme{
+abstract class Theme extends Subsite\Theme{
     abstract function getMetadataPrefix();
 
     abstract protected function _getAgentMetadata();
