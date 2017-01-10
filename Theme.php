@@ -39,6 +39,7 @@ abstract class Theme extends BaseV1\Theme{
 
         $app->hook('view.render(<<*>>):before', function() use($app) {
             $this->jsObject['angularAppDependencies'][] = 'entity.controller.agentTypes';
+            $this->assetManager->publishAsset('img/minc_logo.png');
         });
 
         $app->hook('template(<<space|agent|project|event>>.<<create|edit|single>>.name):after', function(){
