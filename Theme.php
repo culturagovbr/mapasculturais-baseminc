@@ -1,9 +1,9 @@
 <?php
 namespace BaseMinc;
-use MapasCulturais\Themes\BaseV1;
+use Subsite;
 use MapasCulturais\App;
 
-abstract class Theme extends BaseV1\Theme{
+abstract class Theme extends Subsite\Theme{
     abstract function getMetadataPrefix();
 
     abstract protected function _getAgentMetadata();
@@ -22,9 +22,23 @@ abstract class Theme extends BaseV1\Theme{
         $this->jsObject['entity']['tipologia_nivel3'] = $entity->tipologia_nivel3;
     }
 
-    protected function _init() {
+    public function _init() {
         parent::_init();
         $app = App::i();
+
+        $that = $this;
+
+        $app->hook('subsite.applyConfigurations:after', function(&$config) use($that){
+            $theme_path = $that::getThemeFolder() . '/';
+            if (file_exists($theme_path . 'conf-base.php')) {
+                $theme_config = require $theme_path . 'conf-base.php';
+                $config = array_merge($config, $theme_config);
+            }
+            if (file_exists($theme_path . 'config.php')) {
+                $theme_config = require $theme_path . 'config.php';
+                $config = array_merge($config, $theme_config);
+            }
+        });
 
         $app->hook('view.render(agent/<<create|edit>>):before', function(){
             $this->jsObject['agentTypes'] = require __DIR__ . '/tipologia-agentes.php';
