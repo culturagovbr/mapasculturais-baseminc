@@ -43,6 +43,49 @@ class Plugin extends \MapasCulturais\Plugin {
     }
 
     public function register() {
+        $app = App::i();
+        $metadata = [
+            'MapasCulturais\Entities\Subsite' => [
+                'show_instance_only_agent' => [
+                    'label' => 'Exibir somente Agentes cadastrados por este site',
+                    'type'  => 'select',
+                    'options' => [
+                        's' => 'Sim',
+                        'n' => 'Não'
+                    ]
+                ],
+                'show_instance_only_space' => [
+                    'label' => 'Exibir somente Espaços cadastrados por este site',
+                    'type'  => 'select',
+                    'options' => [
+                        's' => 'Sim',
+                        'n' => 'Não'
+                    ]
+                ],
+                'show_instance_only_event' => [
+                    'label' => 'Exibir somente Eventos cadastrados por este site',
+                    'type'  => 'select',
+                    'options' => [
+                        's' => 'Sim',
+                        'n' => 'Não'
+                    ]
+                ],
+                'show_instance_only_project' => [
+                    'label' => 'Exibir somente Projetos cadastrados por este site',
+                    'type'  => 'select',
+                    'options' => [
+                        's' => 'Sim',
+                        'n' => 'Não'
+                    ]
+                ]
+            ]
+        ];
+        foreach($metadata as $entity_class => $metas){
+            foreach($metas as $key => $cfg){
+                $def = new \MapasCulturais\Definitions\Metadata($key, $cfg);
+                $app->registerMetadata($def, $entity_class);
+            }
+        }
 
     }
 }

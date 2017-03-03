@@ -125,40 +125,40 @@ abstract class Theme extends Subsite\Theme{
         $app = App::i();
 
         $metadata = [
-            'MapasCulturais\Entities\Subsite' => [
-                'show_instance_only_agent' => [
-                    'label' => 'Exibir somente Agentes cadastrados por este site',
-                    'type'  => 'select',
-                    'options' => [
-                        's' => 'Sim',
-                        'n' => 'Não'
-                    ]
-                ],
-                'show_instance_only_space' => [
-                    'label' => 'Exibir somente Espaços cadastrados por este site',
-                    'type'  => 'select',
-                    'options' => [
-                        's' => 'Sim',
-                        'n' => 'Não'
-                    ]
-                ],
-                'show_instance_only_event' => [
-                    'label' => 'Exibir somente Eventos cadastrados por este site',
-                    'type'  => 'select',
-                    'options' => [
-                        's' => 'Sim',
-                        'n' => 'Não'
-                    ]
-                ],
-                'show_instance_only_project' => [
-                    'label' => 'Exibir somente Projetos cadastrados por este site',
-                    'type'  => 'select',
-                    'options' => [
-                        's' => 'Sim',
-                        'n' => 'Não'
-                    ]
-                ]
-            ],
+            // 'MapasCulturais\Entities\Subsite' => [
+            //     'show_instance_only_agent' => [
+            //         'label' => 'Exibir somente Agentes cadastrados por este site',
+            //         'type'  => 'select',
+            //         'options' => [
+            //             's' => 'Sim',
+            //             'n' => 'Não'
+            //         ]
+            //     ],
+            //     'show_instance_only_space' => [
+            //         'label' => 'Exibir somente Espaços cadastrados por este site',
+            //         'type'  => 'select',
+            //         'options' => [
+            //             's' => 'Sim',
+            //             'n' => 'Não'
+            //         ]
+            //     ],
+            //     'show_instance_only_event' => [
+            //         'label' => 'Exibir somente Eventos cadastrados por este site',
+            //         'type'  => 'select',
+            //         'options' => [
+            //             's' => 'Sim',
+            //             'n' => 'Não'
+            //         ]
+            //     ],
+            //     'show_instance_only_project' => [
+            //         'label' => 'Exibir somente Projetos cadastrados por este site',
+            //         'type'  => 'select',
+            //         'options' => [
+            //             's' => 'Sim',
+            //             'n' => 'Não'
+            //         ]
+            //     ]
+            // ],
 
             'MapasCulturais\Entities\Event' => [
                 'num_sniic' => [
