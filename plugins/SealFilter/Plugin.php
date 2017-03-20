@@ -22,6 +22,7 @@ class Plugin extends \MapasCulturais\Plugin {
                     'fieldType' => 'checklist',
                     'type' => 'custom',
                     'isArray' => true,
+                    'isInline' => false,
                     'filter' => [
                         'param' => '@seals',
                         'value' => '{val}'
@@ -34,10 +35,8 @@ class Plugin extends \MapasCulturais\Plugin {
                 foreach ($seals as $seal)
                     $seal_filter['options'][] = ['value' => $seal->id, 'label' => $seal->name];
 
-                foreach($filters as $entity => $filter){
-                    if(isset($filters[$entity]['verificados'])) unset($filters[$entity]['verificados']);
+                foreach($filters as $entity => $filter)
                     $filters[$entity]['seal'] = $seal_filter;
-                }
             });
     }
 
