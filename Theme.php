@@ -3,13 +3,23 @@ namespace BaseMinc;
 use Subsite;
 use MapasCulturais\App;
 
-abstract class Theme extends Subsite\Theme{
-    abstract function getMetadataPrefix();
+class Theme extends Subsite\Theme{
 
-    abstract protected function _getAgentMetadata();
-    abstract protected function _getSpaceMetadata();
-    abstract protected function _getEventMetadata();
-    abstract protected function _getProjectMetadata();
+    function getMetadataPrefix(){
+        return '';
+    }
+    protected function _getAgentMetadata(){
+        return [];
+    }
+    protected function _getSpaceMetadata(){
+        return [];
+    }
+    protected function _getEventMetadata(){
+        return [];
+    }
+    protected function _getProjectMetadata(){
+        return [];
+    }
 
     static function getThemeFolder() {
         return __DIR__;
