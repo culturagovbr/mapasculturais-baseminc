@@ -39,27 +39,26 @@ class Plugin extends \MapasCulturais\Plugin {
                 if ($subsite->show_instance_only_event == 's')
                     $params['_subsiteId'] = "EQ($subsite_id)";
             });
-
-            $app->hook('template(subsite.<<*>>.subsite-filters-agent):end', function() use($app){
-                $entity = $app->view->controller->requestedEntity;
-                $app->view->part( 'singles/subsite-filters-same-agent',['entity' => $entity] );
-            });
-
-            $app->hook('template(subsite.<<*>>.subsite-filters-space):end', function() use($app){
-                $entity = $app->view->controller->requestedEntity;
-                $app->view->part( 'singles/subsite-filters-same-space',['entity' => $entity] );
-            });
-
-            $app->hook('template(subsite.<<*>>.subsite-filters-event):end', function() use($app){
-                $entity = $app->view->controller->requestedEntity;
-                $app->view->part( 'singles/subsite-filters-same-event',['entity' => $entity] );
-            });
-
-            $app->hook('template(subsite.<<*>>.subsite-filters-event):after', function() use($app){
-                $entity = $app->view->controller->requestedEntity;
-                $app->view->part( 'singles/subsite-filters-same-project',['entity' => $entity] );
-            });
         }
+        $app->hook('template(subsite.<<*>>.subsite-filters-agent):end', function() use($app){
+            $entity = $app->view->controller->requestedEntity;
+            $app->view->part( 'singles/subsite-filters-same-agent',['entity' => $entity] );
+        });
+
+        $app->hook('template(subsite.<<*>>.subsite-filters-space):end', function() use($app){
+            $entity = $app->view->controller->requestedEntity;
+            $app->view->part( 'singles/subsite-filters-same-space',['entity' => $entity] );
+        });
+
+        $app->hook('template(subsite.<<*>>.subsite-filters-event):end', function() use($app){
+            $entity = $app->view->controller->requestedEntity;
+            $app->view->part( 'singles/subsite-filters-same-event',['entity' => $entity] );
+        });
+
+        $app->hook('template(subsite.<<*>>.subsite-filters-event):after', function() use($app){
+            $entity = $app->view->controller->requestedEntity;
+            $app->view->part( 'singles/subsite-filters-same-project',['entity' => $entity] );
+        });
     }
 
     public function register() {
