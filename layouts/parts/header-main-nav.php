@@ -72,10 +72,10 @@
 
         <?php if($app->isEnabled('opportunities')): ?>
             <?php $this->applyTemplateHook('nav.main.opportunities','before'); ?>
-            <li id="entities-menu-project"  ng-class="{'active':data.global.filterEntity === 'opportunity'}" ng-click="tabClick('opportunity')">
+            <li id="entities-menu-opportunity"  ng-class="{'active':data.global.filterEntity === 'opportunity'}" ng-click="tabClick('opportunity')">
                 <a href="<?php if ($this->controller->action !== 'search') echo $app->createUrl('busca') . '##(global:(enabled:(opportunity:!t),filterEntity:opportunity,viewMode:list))'; ?>">
                     <div class="icon icon-opportunity"></div>
-                    <div class="menu-item-label"><?php $this->dict('entities: Opportunities') ?></div>
+                    <div class="menu-item-label">Editais</div>
                 </a>
             </li>
             <?php $this->applyTemplateHook('nav.main.projects','after'); ?>
@@ -190,7 +190,7 @@
 
                         <?php $this->applyTemplateHook('nav.dropdown.opportunities','before'); ?>
                         <li>
-                            <a href="<?php echo $app->createUrl('panel', 'opportunities') ?>">Minhas Oportunidades</a>
+                            <a href="<?php echo $app->createUrl('panel', 'opportunities') ?>">Meus Editais</a>
                         </li>
                         <?php $this->applyTemplateHook('nav.dropdown.opportunities','after'); ?>
                     <?php endif; ?>
