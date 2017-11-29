@@ -42,9 +42,9 @@
         <?php endif; ?>
 
         <?php if($app->isEnabled('opportunities')): ?>
-            <?php $this->applyTemplateHook('nav.panel.projects','before'); ?>
-            <li><a <?php if($this->template == 'panel/projects') echo 'class="active"'; ?> href="<?php echo $app->createUrl('panel', 'opportunities') ?>"><span class="icon icon-opportunity"></span> Minhas Oportunidades</a></li>
-            <?php $this->applyTemplateHook('nav.panel.projects','after'); ?>
+            <?php $this->applyTemplateHook('nav.panel.opportunities','before'); ?>
+            <li><a <?php if($this->template == 'panel/opportunities') echo 'class="active"'; ?> href="<?php echo $app->createUrl('panel', 'opportunities') ?>"><span class="icon icon-opportunity"></span> <?php $this->dict('entities: My Opportunities') ?></a></li>
+            <?php $this->applyTemplateHook('nav.panel.opportunities','after'); ?>
         <?php endif; ?>
 
         <?php if($app->user->is('saasAdmin') && $app->isEnabled('subsite')): ?>
