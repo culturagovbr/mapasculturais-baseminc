@@ -258,9 +258,10 @@ class Theme extends Subsite\Theme{
                 'tipologia_nivel3' => [
                     'label' => 'Tipologia Nível 3',
                     'private' => false,
-                    'validations' => [
+                   /* 'validations' => [
                         'required' => 'A tipologia deve ser informada.'
                     ]
+                   */
                 ],
             ]
         ];
