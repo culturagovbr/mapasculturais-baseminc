@@ -7,8 +7,8 @@
 #nav-opportunities {
   background: #388784; }
 
-.tag-opportunity {
-  background-color: #388784; }
+//.tag-opportunity {
+//  background-color: #388784; }
 
 #opportunities-filter:hover,
 #opportunities-filter:focus {
@@ -21,9 +21,6 @@
 
 .registrations-table tbody a, .my-registrations tbody a {
   color: #388784; }
-
-opportunity .objeto:hover h1 a, .opportunity .objeto-meta a {
-  color: #000000; }
 
 .registration-header {
   background-color: #388784;
@@ -76,6 +73,14 @@ article.opportunity .header-image, article.registration .header-image {
 
 .header-content .opportunity-type, .header-content .registration-type {
   color: #388784; }
+
+.opportunity .objeto:hover h1 a, .opportunity .objeto-meta a {
+  color: #388784; }
+
+.tag-opportunity, .tag-opportunity a{
+  color: #ffffff !important;
+  background-color: #388784;
+}
 
 .icon-opportunity:before {
   content: ""; }
