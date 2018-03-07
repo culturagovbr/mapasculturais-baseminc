@@ -30,6 +30,8 @@ class Theme extends Subsite\Theme{
         $this->jsObject['entity']['tipologia_nivel1'] = $entity->tipologia_nivel1;
         $this->jsObject['entity']['tipologia_nivel2'] = $entity->tipologia_nivel2;
         $this->jsObject['entity']['tipologia_nivel3'] = $entity->tipologia_nivel3;
+        $this->jsObject['entity']['tipologia_individual_cbo_cod'] = $entity->tipologia_individual_cbo_cod;
+        $this->jsObject['entity']['tipologia_individual_cbo_ocupacao'] = $entity->tipologia_individual_cbo_ocupacao;
     }
 
     public function _init() {
@@ -52,6 +54,7 @@ class Theme extends Subsite\Theme{
 
         $app->hook('view.render(agent/<<create|edit>>):before', function(){
             $this->jsObject['agentTypes'] = require __DIR__ . '/tipologia-agentes.php';
+            $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
         });
 
         $app->hook('entity(<<Agent|Space|Event|Project>>).save:after', function() use ($app){
@@ -257,11 +260,15 @@ class Theme extends Subsite\Theme{
                 ],
                 'tipologia_nivel3' => [
                     'label' => 'Tipologia Nível 3',
-                    'private' => false,
-                    'validations' => [
-                        'required' => 'A tipologia deve ser informada.'
-                    ]
-                ],
+                    'private' => false                    
+                ]
+                ,'tipologia_individual_cbo_cod' => [
+                    'label' => 'Código Tipologia Individual (CBO)',
+                    'private' => false
+                ],'tipologia_individual_cbo_ocupacao' => [
+                    'label' => 'Ocupação Tipologia Individual (CBO)',
+                    'private' => false
+                ]
             ]
         ];
 

@@ -14,3 +14,25 @@
 #home-watermark {
     display: none;
 }
+
+.search-typology {
+    padding: 5px 0px;
+    cursor: pointer;
+    line-height: 1.4;
+    width: 100%;
+}
+
+.search-typology:hover {
+    background: #e3e3e3;
+}
+
+.search-typology-list .typology_familia {
+    color: #333333;
+    font-size: 10px;
+}
+
+.search-typology-list {
+    list-style-type: none;
+    font-size: 14px;
+    margin: 0;
+}
