@@ -159,8 +159,9 @@
             }
 
             var s = $scope.data.searchText.trim();
-            if (parseInt(s) != s && s.length <= 1) {
-                 return;
+            if (parseInt(s) != s && s.length < 4) {
+                $scope.data.result = [];
+                return;
             }            
 
             var data = [];
@@ -187,10 +188,10 @@
             }            
             
             if (data.length > 0) {
-                if ($scope.data.currentFind.paginating == false) 
+                if ($scope.data.currentFind.paginating == false)
                     $scope.data.result = data;
-                else {                    
-                    $scope.data.result = $scope.data.result.concat(data);                    
+                else {
+                    $scope.data.result = $scope.data.result.concat(data);
                 }
             }            
         };
