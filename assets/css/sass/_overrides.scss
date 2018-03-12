@@ -22,9 +22,9 @@
     width: 100%;
 }
 
-.search-typology:hover {
-    background: #e3e3e3;
-}
+// .search-typology:hover {
+//     background: #e3e3e3;
+// }
 
 .search-typology-list .typology_familia {
     color: #333333;
@@ -35,4 +35,16 @@
     list-style-type: none;
     font-size: 14px;
     margin: 0;
+}
+
+/* Find Typology*/
+.find-typology .result-container {
+    max-height: 200px;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+}
+.find-typology .result-container li:hover {
+    background: $gray-light;
+    cursor: pointer;
 }

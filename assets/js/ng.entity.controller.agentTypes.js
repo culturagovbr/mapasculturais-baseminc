@@ -3,7 +3,7 @@
 
     var module = angular.module('entity.controller.agentTypes', ['ngSanitize']);
     
-    module.controller('AgentTypesController',['$scope', 'EditBox', function($scope, EditBox){
+    module.controller('AgentTypesController',['$scope', 'EditBox', '$window', function($scope, EditBox, $window, $document){
         $scope.editBox = EditBox;
 
         var type = 0;
@@ -14,8 +14,7 @@
         var n2 = MapasCulturais.entity.tipologia_nivel2;
         var n3 = MapasCulturais.entity.tipologia_nivel3;
         var cbo_cod = MapasCulturais.entity.tipologia_individual_cbo_cod;
-        var cbo_ocupacao = MapasCulturais.entity.tipologia_individual_cbo_ocupacao;
-        console.log(cbo_ocupacao);
+        var cbo_ocupacao = MapasCulturais.entity.tipologia_individual_cbo_ocupacao;        
         
         typesColetivos.__values = Object.keys(typesColetivos);
         typesColetivos.__values.forEach(function(val){
@@ -28,6 +27,27 @@
             $scope.data.type_individual_selected.codigo = "";
             $scope.$apply();
         });
+
+        
+        $window.onload = function() {        
+            $('.find-typology .result-container').scroll(function() {
+                var innerHeight = this.scrollHeight;
+                var scroll = jQuery(this).scrollTop();
+                var height = jQuery(this).height();
+                var bottomY = innerHeight - height - scroll;                
+                if (bottomY < height) {    
+                    $scope.data.currentFind.paginating = true;
+                    $scope.find(10);
+                    $scope.$apply();
+                }
+            }).bind('mousewheel DOMMouseScroll', function (e) {
+                var e0 = e.originalEvent,
+                    delta = e0.wheelDelta || -e0.detail;
+                this.scrollTop += (delta < 0 ? 1 : -1) * 30;
+                e.preventDefault();
+            });
+        }
+       
         
         $scope.data = {
             _tipo1: n1,
@@ -45,8 +65,8 @@
 
             searchText : '',
             result : [],
-            type_individual_selected : {"codigo":cbo_cod,"ocupacao":cbo_ocupacao,"familia":""}
-            
+            type_individual_selected : {"codigo":cbo_cod,"ocupacao":cbo_ocupacao,"familia":""},
+            currentFind : {"currentRowFamilia":0, "currentRowOcupacao":0, "paginating":false}                
         };
         
         $scope.set = function(n){
@@ -73,8 +93,7 @@
         
         setEditables();
         
-        $scope.setTypes = function() {
-            //var type = parseInt($('.js-editable-type').editable('getValue').type);            
+        $scope.setTypes = function() {            
             if (type == 2) {
                 $scope.data.tipologia1 = $scope.data._tipo1;
                 $scope.data.tipologia2 = $scope.data._tipo2;
@@ -90,8 +109,6 @@
                 $scope.data.tipologia1 = "";
                 $scope.data.tipologia2 = "";
                 $scope.data.tipologia3 = "";
-                console.log($scope.data.type_individual_selected);
-                console.log($scope.data.type_individual_selected.codigo);
                 setEditables();
                 EditBox.close('eb-tipologia-individual');
             }
@@ -105,8 +122,7 @@
         };
 
         
-        $scope.openModalType = function(e) {
-            //var type = parseInt($('.js-editable-type').editable('getValue').type);
+        $scope.openModalType = function(e) {            
             if (type == 2) {
                 $scope.editBox.open('eb-tipologia-coletiva', e);
             } else {                
@@ -114,10 +130,11 @@
             }
         };
 
-        $scope.selected = function(typology){
+        $scope.selected = function(typology) {
             $scope.data.type_individual_selected = typology;
-            $scope.data.searchText = $scope.data.type_individual_selected.ocupacao;            
-            $scope.data.result = [];            
+            $scope.data.searchText = $scope.data.type_individual_selected.ocupacao;
+            $scope.data.result = [];
+            this.setTypes();
         };
 
         $scope.getCurrentTypology  = function () {
@@ -130,34 +147,53 @@
             return "Escolha uma tipologia";
         };
 
-        $scope.find = function (time) {
-            
+        $scope.startFind = function (time) {             
+            $scope.data.currentFind.paginating = false;
+            $scope.find(10);
+        }
+
+        $scope.find = function (time) {            
+            if ($scope.data.currentFind.paginating == false) {                
+                $scope.data.currentFind.currentRowFamilia = 0;
+                $scope.data.currentFind.currentRowOcupacao = 0;
+            }
+
             var s = $scope.data.searchText.trim();
-            if (parseInt(s) != s && s.length < 2) {
+            if (parseInt(s) != s && s.length <= 1) {
                  return;
             }            
 
             var data = [];
-            var limint = 0;
-            for (var f in typesIndividuais) {
-                for (var t in typesIndividuais[f].ocupacoes) {
+            var limit = 10;
+
+            for ( $scope.data.currentFind.currentRowFamilia; 
+                  $scope.data.currentFind.currentRowFamilia < typesIndividuais.length && limit > 0; 
+                  $scope.data.currentFind.currentRowFamilia++) {
+                var f = $scope.data.currentFind.currentRowFamilia;
+                
+                for ($scope.data.currentFind.currentRowOcupacao = 0; 
+                     $scope.data.currentFind.currentRowOcupacao < typesIndividuais[f].ocupacoes.length && limit > 0; 
+                     $scope.data.currentFind.currentRowOcupacao++) {
+                    var t = $scope.data.currentFind.currentRowOcupacao;
                     var type = typesIndividuais[f].ocupacoes[t];
                     if(type.ocupacao.toLowerCase().indexOf(s.toLowerCase())==0) {
                         data.push({
                              "codigo":type.codigo,
                              "ocupacao":type.ocupacao,
                              "familia":typesIndividuais[f].familia});
-                        limint++;
+                        limit--;
                     }
-                    if (limint > 6)
-                        break;
-                 }
-                 if (limint > 6)
-                        break;
-            }
-            $scope.data.result = data;            
-        };       
-        
+                }                
+            }            
+            
+            if (data.length > 0) {
+                if ($scope.data.currentFind.paginating == false) 
+                    $scope.data.result = data;
+                else {                    
+                    $scope.data.result = $scope.data.result.concat(data);                    
+                }
+            }            
+        };
 
     }]);
 })(angular);

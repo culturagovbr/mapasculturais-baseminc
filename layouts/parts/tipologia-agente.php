@@ -28,13 +28,13 @@
         </label>
     </edit-box>
 
-    <edit-box id="eb-tipologia-individual" position="bottom" cancel-label="Cancelar" submit-label="Enviar" on-submit="setTypes" on-cancel="resetValues" close-on-cancel="1">
+    <edit-box id="eb-tipologia-individual" position="bottom" cancel-label="Cancelar" on-cancel="resetValues" close-on-cancel="1">
         <label>Tipologia:</label>
         <input type="hidden" id="tipologia_individual_cbo_cod" class="js-editable" data-edit="tipologia_individual" data-emptytext="">
         <input type="hidden" id="tipologia_individual_cbo_ocupacao" class="js-editable" data-edit="tipologia_individual" data-emptytext="">
         
-        <div class="directive-find-typology">
-            <input id="seachTexTypologyIndividual" ng-model="data.searchText" ng-change="find()" placeholder="buscar tipologia"/>
+        <div class="find-typology">
+            <input id="seachTexTypologyIndividual" ng-model="data.searchText" ng-change="startFind()" placeholder="buscar tipologia"/>
             
             <div class="result-container">
                 
