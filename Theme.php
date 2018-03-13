@@ -64,6 +64,11 @@ class Theme extends Subsite\Theme{
             }
         });
 
+        // $app->hook('entity(AgentMeta).new', function() use ($app){
+        //     \dump($app->getController());
+        //     die();
+        // });
+
         $app->hook('view.render(<<*>>):before', function() use($app) {
             $this->jsObject['angularAppDependencies'][] = 'entity.controller.agentTypes';
             $this->assetManager->publishAsset('img/minc_logo.png');
@@ -260,12 +265,19 @@ class Theme extends Subsite\Theme{
                 ],
                 'tipologia_nivel3' => [
                     'label' => 'Tipologia Nível 3',
-                    'private' => false                    
-                ]
-                ,'tipologia_individual_cbo_cod' => [
+                    'private' => false,
+                    'validations' => [
+                        'v::not(v::falseVal())' => 'A tipologia deve ser informada.'
+                    ]
+                ],
+                'tipologia_individual_cbo_cod' => [
                     'label' => 'Código Tipologia Individual (CBO)',
-                    'private' => false
-                ],'tipologia_individual_cbo_ocupacao' => [
+                    'private' => false,
+                    'validations' => [
+                        'v::not(v::falseVal())' => 'A tipologia deve ser informada.'
+                    ]
+                ],
+                'tipologia_individual_cbo_ocupacao' => [
                     'label' => 'Ocupação Tipologia Individual (CBO)',
                     'private' => false
                 ]

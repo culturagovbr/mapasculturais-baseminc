@@ -26,8 +26,8 @@
                 var innerHeight = this.scrollHeight;
                 var scroll = jQuery(this).scrollTop();
                 var height = jQuery(this).height();
-                var bottomY = innerHeight - height - scroll;                
-                if (bottomY < height) {    
+                var bottomY = innerHeight - height - scroll;
+                if (bottomY < height) {
                     $scope.data.currentFind.paginating = true;
                     $scope.find(10);
                     $scope.$apply();
@@ -38,17 +38,24 @@
                 this.scrollTop += (delta < 0 ? 1 : -1) * 30;
                 e.preventDefault();
             });
-        });
-        
 
-        $('.js-editable-type').on('save', function(e, params) {
-            type = params.newValue;
-            $scope.data.tipologia3 = "";
-            $scope.data.type_individual_selected.codigo = "";
-            $scope.$apply();
+            $('.js-editable-type').on('save', function(e, params) {
+                /*
+                    Ao inicializar os valores das tipologias com o valor "false" faz com que as regras de validação dos metadados sejam desrespeitadas.
+                    ao selecionar uma tipologia para um determinado tipo os valores dos campos da tipologia para o outro tipo de agente terão seus valores uma string vazia
+                    condição suficiente para ser aceito pela validação dos metadados (validação de obrigatoriedade fraca).
+                */
+                type = params.newValue;
+                $scope.data.tipologia1 = false;
+                $scope.data.tipologia2 = false;
+                $scope.data.tipologia3 = false;                
+                $scope.data.type_individual_selected.codigo = false;
+                $scope.data.type_individual_selected.ocupacao = false;
+                setEditables();
+                $scope.$apply();
+            });
         });
-       
-        
+
         $scope.data = {
             _tipo1: n1,
             _tipo2: n2,
