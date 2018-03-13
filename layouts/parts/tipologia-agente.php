@@ -34,17 +34,18 @@
         <input type="hidden" id="tipologia_individual_cbo_ocupacao" class="js-editable" data-edit="tipologia_individual" data-emptytext="">
         
         <div class="find-typology">
-            <input id="seachTexTypologyIndividual" ng-model="data.searchText" ng-change="startFind()" placeholder="buscar tipologia"/>
+            <input id="seachTexTypologyIndividual" ng-model="data.searchText" ng-change="startFind()" placeholder="buscar tipologia" autocomplete="off"/>
             
             <div class="result-container">
-                
                 <ul class="search-typology-list">
                     <li class="search-typology clearfix" ng-repeat="typology in data.result" ng-click="selected(typology)" >
                         <span><b>{{typology.codigo}} - {{typology.ocupacao}}</b></span><br />
                         <span class="typology_familia">{{typology.familia}}</span>
-                    </li>
+                    </li>                    
                 </ul>
+                <span ng-show="!data.result.length">sem resultados</span>
             </div>
+            
         </div>
     </edit-box>
 

@@ -3,7 +3,7 @@
 
     var module = angular.module('entity.controller.agentTypes', ['ngSanitize']);
     
-    module.controller('AgentTypesController',['$scope', 'EditBox', '$window', function($scope, EditBox, $window, $document){
+    module.controller('AgentTypesController',['$scope', 'EditBox', '$timeout', '$window', function($scope, EditBox, $timeout, $window){
         $scope.editBox = EditBox;
 
         var type = 0;
@@ -21,15 +21,7 @@
             typesColetivos[val].__values = Object.keys(typesColetivos[val]);
         });
 
-        $('.js-editable-type').on('save', function(e, params) {
-            type = params.newValue;
-            $scope.data.tipologia3 = "";
-            $scope.data.type_individual_selected.codigo = "";
-            $scope.$apply();
-        });
-
-        
-        $window.onload = function() {        
+        $timeout(function() {          
             $('.find-typology .result-container').scroll(function() {
                 var innerHeight = this.scrollHeight;
                 var scroll = jQuery(this).scrollTop();
@@ -46,7 +38,15 @@
                 this.scrollTop += (delta < 0 ? 1 : -1) * 30;
                 e.preventDefault();
             });
-        }
+        });
+        
+
+        $('.js-editable-type').on('save', function(e, params) {
+            type = params.newValue;
+            $scope.data.tipologia3 = "";
+            $scope.data.type_individual_selected.codigo = "";
+            $scope.$apply();
+        });
        
         
         $scope.data = {
@@ -99,6 +99,7 @@
                 $scope.data.tipologia2 = $scope.data._tipo2;
                 $scope.data.tipologia3 = $scope.data._tipo3;
                 $scope.data.type_individual_selected.codigo = "";
+                $scope.data.type_individual_selected.ocupacao = "";
                 $scope.data.searchText = "";
                                 
                 setEditables();
@@ -153,7 +154,7 @@
         }
 
         $scope.find = function (time) {            
-            if ($scope.data.currentFind.paginating == false) {                
+            if ($scope.data.currentFind.paginating == false) {
                 $scope.data.currentFind.currentRowFamilia = 0;
                 $scope.data.currentFind.currentRowOcupacao = 0;
             }
@@ -167,13 +168,13 @@
             var data = [];
             var limit = 10;
 
-            for ( $scope.data.currentFind.currentRowFamilia; 
-                  $scope.data.currentFind.currentRowFamilia < typesIndividuais.length && limit > 0; 
+            for ( $scope.data.currentFind.currentRowFamilia;
+                  $scope.data.currentFind.currentRowFamilia < typesIndividuais.length && limit > 0;
                   $scope.data.currentFind.currentRowFamilia++) {
                 var f = $scope.data.currentFind.currentRowFamilia;
                 
-                for ($scope.data.currentFind.currentRowOcupacao = 0; 
-                     $scope.data.currentFind.currentRowOcupacao < typesIndividuais[f].ocupacoes.length && limit > 0; 
+                for ($scope.data.currentFind.currentRowOcupacao = 0;
+                     $scope.data.currentFind.currentRowOcupacao < typesIndividuais[f].ocupacoes.length && limit > 0;
                      $scope.data.currentFind.currentRowOcupacao++) {
                     var t = $scope.data.currentFind.currentRowOcupacao;
                     var type = typesIndividuais[f].ocupacoes[t];
@@ -184,16 +185,18 @@
                              "familia":typesIndividuais[f].familia});
                         limit--;
                     }
-                }                
-            }            
-            
+                }
+            }
+                       
             if (data.length > 0) {
                 if ($scope.data.currentFind.paginating == false)
                     $scope.data.result = data;
                 else {
                     $scope.data.result = $scope.data.result.concat(data);
                 }
-            }            
+            } else if ($scope.data.currentFind.paginating == false) {
+                $scope.data.result = [];
+            }
         };
 
     }]);
