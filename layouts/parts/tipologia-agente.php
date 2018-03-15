@@ -2,7 +2,7 @@
 <div class="entity-type agent-type" ng-controller="AgentTypesController">
     <div class="icon icon-agent"></div>
     
-    <a id="edit-tipologia" class="required editable" ng-click="openModalType($event)"> {{getCurrentTypology()}}</a>    
+    <a id="edit-tipologia" class="required editable" ng-click="openModalType($event)"> {{getCurrentTypology()}}</a>
 
     <edit-box id="eb-tipologia-coletiva" position="bottom" cancel-label="Cancelar" submit-label="Enviar" on-submit="setTypes" on-cancel="resetValues" close-on-cancel="1">
         <input type="hidden" id="tipologia_nivel1" class="js-editable" data-edit="tipologia_nivel1" data-emptytext="">

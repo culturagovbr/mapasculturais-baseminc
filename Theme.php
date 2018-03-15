@@ -27,11 +27,11 @@ class Theme extends Subsite\Theme{
 
     public function addEntityToJs(\MapasCulturais\Entity $entity) {
         parent::addEntityToJs($entity);
-        $this->jsObject['entity']['tipologia_nivel1'] = $entity->tipologia_nivel1;
-        $this->jsObject['entity']['tipologia_nivel2'] = $entity->tipologia_nivel2;
-        $this->jsObject['entity']['tipologia_nivel3'] = $entity->tipologia_nivel3;
-        $this->jsObject['entity']['tipologia_individual_cbo_cod'] = $entity->tipologia_individual_cbo_cod;
-        $this->jsObject['entity']['tipologia_individual_cbo_ocupacao'] = $entity->tipologia_individual_cbo_ocupacao;
+        $this->jsObject['entity']['tipologia_nivel1'] = $entity->tipologia_nivel1?$entity->tipologia_nivel1:'';
+        $this->jsObject['entity']['tipologia_nivel2'] = $entity->tipologia_nivel2?$entity->tipologia_nivel2:'';
+        $this->jsObject['entity']['tipologia_nivel3'] = $entity->tipologia_nivel3?$entity->tipologia_nivel3:'';
+        $this->jsObject['entity']['tipologia_individual_cbo_cod'] = $entity->tipologia_individual_cbo_cod?$entity->tipologia_individual_cbo_cod:'';
+        $this->jsObject['entity']['tipologia_individual_cbo_ocupacao'] = $entity->tipologia_individual_cbo_ocupacao?$entity->tipologia_individual_cbo_ocupacao:'';        
     }
 
     public function _init() {
