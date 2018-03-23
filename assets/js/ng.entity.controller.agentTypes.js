@@ -146,10 +146,10 @@
         };
 
         $scope.getCurrentTypology  = function () {
-            if ($scope.data.tipologia3 != "") {
+            if (type == 2 && $scope.data.tipologia3 != "") {
                 return $scope.data.tipologia3;
             }
-            else if ($scope.data.type_individual_selected.codigo != "") {
+            else if (type == 1 && $scope.data.type_individual_selected.codigo != "") {
                 return $scope.data.type_individual_selected.codigo + " - " + $scope.data.type_individual_selected.ocupacao;
             }
             return "Escolha uma tipologia";

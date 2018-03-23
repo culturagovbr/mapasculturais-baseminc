@@ -34,7 +34,7 @@
         <input type="hidden" id="tipologia_individual_cbo_ocupacao" class="js-editable" data-edit="tipologia_individual" data-emptytext="">
         
         <div class="find-typology">
-            <input id="seachTexTypologyIndividual" ng-model="data.searchText" ng-change="startFind()" placeholder="buscar tipologia" autocomplete="off"/>
+            <input id="seachTexTypologyIndividual" ng-model="data.searchText" ng-change="startFind()" placeholder="buscar tipologia (Ex: produtor cultural)" autocomplete="off"/>
             
             <div class="result-container">
                 <ul class="search-typology-list">
@@ -58,10 +58,15 @@
         <div class="icon icon-agent"></div>        
         <a href="#">
             <?php
-                if ($entity->tipologia_nivel3 != "")
+                if ($entity->type == '2' && $entity->tipologia_nivel3 != "") {
                     echo $entity->tipologia_nivel3;
-                else
-                    echo "$entity->tipologia_individual_cbo_cod - $entity->tipologia_individual_cbo_ocupacao"
+                } else {
+                    if ($entity->type == '1' && $entity->tipologia_individual_cbo_cod != "" ) {
+                        echo "$entity->tipologia_individual_cbo_cod - $entity->tipologia_individual_cbo_ocupacao";                    
+                    } else {
+                        echo "--";                        
+                    }
+                } 
             ?>
         </a>        
     </div>
