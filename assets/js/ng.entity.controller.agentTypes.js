@@ -6,7 +6,7 @@
     module.controller('AgentTypesController',['$scope', 'EditBox', '$timeout', '$window', function($scope, EditBox, $timeout, $window){
         $scope.editBox = EditBox;
 
-        var type = 0;
+        var type = 1;
         var typesIndividuais = MapasCulturais.agentTypesIndividuais;
         var typesColetivos = MapasCulturais.agentTypes;
 
