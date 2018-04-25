@@ -52,7 +52,7 @@ class Theme extends Subsite\Theme{
             }
         });
 
-        $app->hook('view.render(agent/<<create|edit>>):before', function(){
+        $app->hook('view.render(agent/<<create|edit|single>>):before', function(){
             $this->jsObject['agentTypes'] = require __DIR__ . '/tipologia-agentes.php';
             $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
         });
