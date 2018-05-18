@@ -27,9 +27,11 @@ class Theme extends Subsite\Theme{
 
     public function addEntityToJs(\MapasCulturais\Entity $entity) {
         parent::addEntityToJs($entity);
-        $this->jsObject['entity']['tipologia_nivel1'] = $entity->tipologia_nivel1;
-        $this->jsObject['entity']['tipologia_nivel2'] = $entity->tipologia_nivel2;
-        $this->jsObject['entity']['tipologia_nivel3'] = $entity->tipologia_nivel3;
+        $this->jsObject['entity']['tipologia_nivel1'] = $entity->tipologia_nivel1?$entity->tipologia_nivel1:'';
+        $this->jsObject['entity']['tipologia_nivel2'] = $entity->tipologia_nivel2?$entity->tipologia_nivel2:'';
+        $this->jsObject['entity']['tipologia_nivel3'] = $entity->tipologia_nivel3?$entity->tipologia_nivel3:'';
+        $this->jsObject['entity']['tipologia_individual_cbo_cod'] = $entity->tipologia_individual_cbo_cod?$entity->tipologia_individual_cbo_cod:'';
+        $this->jsObject['entity']['tipologia_individual_cbo_ocupacao'] = $entity->tipologia_individual_cbo_ocupacao?$entity->tipologia_individual_cbo_ocupacao:'';        
     }
 
     public function _init() {
@@ -50,8 +52,9 @@ class Theme extends Subsite\Theme{
             }
         });
 
-        $app->hook('view.render(agent/<<create|edit>>):before', function(){
+        $app->hook('view.render(agent/<<create|edit|single>>):before', function(){
             $this->jsObject['agentTypes'] = require __DIR__ . '/tipologia-agentes.php';
+            $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
         });
 
         $app->hook('entity(<<Agent|Space|Event|Project>>).save:after', function() use ($app){
@@ -60,6 +63,11 @@ class Theme extends Subsite\Theme{
                 $this->num_sniic = $num;
             }
         });
+
+        // $app->hook('entity(AgentMeta).new', function() use ($app){
+        //     \dump($app->getController());
+        //     die();
+        // });
 
         $app->hook('view.render(<<*>>):before', function() use($app) {
             $this->jsObject['angularAppDependencies'][] = 'entity.controller.agentTypes';
@@ -259,9 +267,20 @@ class Theme extends Subsite\Theme{
                     'label' => 'Tipologia Nível 3',
                     'private' => false,
                     'validations' => [
-                        'required' => 'A tipologia deve ser informada.'
+                        'v::not(v::falseVal())' => 'A tipologia deve ser informada.'
                     ]
                 ],
+                'tipologia_individual_cbo_cod' => [
+                    'label' => 'Código Tipologia Individual (CBO)',
+                    'private' => false,
+                    'validations' => [
+                        'v::not(v::falseVal())' => 'A tipologia deve ser informada.'
+                    ]
+                ],
+                'tipologia_individual_cbo_ocupacao' => [
+                    'label' => 'Ocupação Tipologia Individual (CBO)',
+                    'private' => false
+                ]
             ]
         ];
 
