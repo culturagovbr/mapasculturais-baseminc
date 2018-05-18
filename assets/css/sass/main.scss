@@ -4,19 +4,18 @@
 @import "../../../../BaseV1/assets/css/sass/main";
 @import "overrides";
 
-#nav-opportunities {
+// TODO - Implementar pluralização para poder alterar opportunitys para opportunities
+
+#nav-opportunitys {
   background: #388784; }
 
-//.tag-opportunity {
-//  background-color: #388784; }
-
-#opportunities-filter:hover,
-#opportunities-filter:focus {
+#opportunitys-filter:hover,
+#opportunitys-filter:focus {
   background-color: #388784; }
 
-#home-opportunities {
+#home-opportunitys {
   background: #388784; }
-#home-opportunities .abas li.active {
+#home-opportunitys .abas li.active {
   border-bottom-color: #388784; }
 
 .registrations-table tbody a, .my-registrations tbody a {
@@ -34,10 +33,10 @@
 .color-opportunity {
   color: #388784 !important; }
 
-#filter-opportunities {
+#filter-opportunitys {
   background: #388784; }
 
-#filter-opportunities .advanced-filters {
+#filter-opportunitys .advanced-filters {
   background: #388784; }
 
 #opportunity-list-header {
