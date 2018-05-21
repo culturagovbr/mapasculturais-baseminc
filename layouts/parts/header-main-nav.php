@@ -114,7 +114,7 @@
                                         </span>
                                     </span>
 
-                                    <span ng-if="!notification.isRequest">
+                                    <span ng-if="!notification.request">
                                         <a class="btn btn-small btn-success" ng-click="delete(notification.id)">ok</a>
                                     </span>
 
