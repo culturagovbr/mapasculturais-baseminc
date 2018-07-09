@@ -2,14 +2,12 @@
     "use strict";
 
     var module = angular.module('entity.controller.agentTypes', ['ngSanitize']);
-    
-    module.controller('AgentTypesController',['$scope', 'EditBox', '$timeout', '$window', function($scope, EditBox, $timeout, $window){
-        $scope.editBox = EditBox;
 
+    module.controller('AgentTypesController',['$scope', 'EditBox', '$timeout', '$window', function($scope, EditBox, $timeout, $window) {
+        $scope.editBox = EditBox;
         var type = 1;
         var typesIndividuais = MapasCulturais.agentTypesIndividuais;
         var typesColetivos = MapasCulturais.agentTypes;
-
         var n1 = MapasCulturais.entity.tipologia_nivel1;
         var n2 = MapasCulturais.entity.tipologia_nivel2;
         var n3 = MapasCulturais.entity.tipologia_nivel3;
@@ -21,7 +19,7 @@
             typesColetivos[val].__values = Object.keys(typesColetivos[val]);
         });
 
-        $timeout(function() {          
+        $timeout(function() {
             $('.find-typology .result-container').scroll(function() {
                 var innerHeight = this.scrollHeight;
                 var scroll = jQuery(this).scrollTop();

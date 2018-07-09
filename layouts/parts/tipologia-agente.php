@@ -1,7 +1,7 @@
-<?php if($this->isEditable()): ?>
+<?php if ($this->isEditable()): ?>
 <div class="entity-type agent-type" ng-controller="AgentTypesController">
     <div class="icon icon-agent"></div>
-    
+
     <a id="edit-tipologia" class="required editable" ng-click="openModalType($event)"> {{getCurrentTypology()}}</a>
 
     <edit-box id="eb-tipologia-coletiva" position="bottom" cancel-label="Cancelar" submit-label="Enviar" on-submit="setTypes" on-cancel="resetValues" close-on-cancel="1">
@@ -32,30 +32,27 @@
         <label>Tipologia:</label>
         <input type="hidden" id="tipologia_individual_cbo_cod" class="js-editable" data-edit="tipologia_individual" data-emptytext="">
         <input type="hidden" id="tipologia_individual_cbo_ocupacao" class="js-editable" data-edit="tipologia_individual" data-emptytext="">
-        
+
         <div class="find-typology">
             <input id="seachTexTypologyIndividual" ng-model="data.searchText" ng-change="startFind()" placeholder="buscar tipologia (Ex: produtor cultural)" autocomplete="off"/>
-            
             <div class="result-container">
                 <ul class="search-typology-list">
                     <li class="search-typology clearfix" ng-repeat="typology in data.result" ng-click="selected(typology)" >
                         <span><b>{{typology.codigo}} - {{typology.ocupacao}}</b></span><br />
                         <span class="typology_familia">{{typology.familia}}</span>
-                    </li>                    
+                    </li>
                 </ul>
                 <span ng-show="!data.result.length">sem resultados</span>
             </div>
-            
+
         </div>
     </edit-box>
-
-
 </div>
 <!--.entity-type-->
 <?php else: ?>
 <div class="entity-type agent-type" ng-controller="AgentTypesController">
     <div class="entity-type agent-type">
-        <div class="icon icon-agent"></div>        
+        <div class="icon icon-agent"></div>
         <a href="#">
             <?php
                 if ($entity->type == '2' && $entity->tipologia_nivel3 != "") {
@@ -68,7 +65,7 @@
                     }
                 } 
             ?>
-        </a>        
+        </a>
     </div>
 </div>
 <?php endif; ?>

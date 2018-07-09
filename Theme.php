@@ -83,6 +83,53 @@ class Theme extends Subsite\Theme{
             $this->part('tipologia-agente', ['entity' => $this->data->entity]);
         });
 
+        $app->hook('mapasculturais.add_entity_modal.tipologias_agentes', function($entity) {
+
+            $tipologias_coletivas = require __DIR__ . '/tipologia-agentes.php';
+            // $tipologias_individuais = $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
+
+            $n1 = array_keys($tipologias_coletivas);
+            echo "Tipologias Coletivas <br/>";
+            ?>
+            <label for="tipologia_nivel1"><?php echo "Nível 1"; ?></label>
+            <select name="tipologia_nivel1" id="tipologia_nivel1">
+                <?php foreach($n1 as $nivel1):
+                    $chave = array_keys($tipologias_coletivas[$nivel1]);
+                    $n2[] = $chave;
+                    if (is_array($chave)) {
+                        foreach ($chave as $k => $publica) {
+                            $n3[] = $tipologias_coletivas[$nivel1][$publica];
+                        }
+                    }
+                    ?>
+                    <option value="<?php echo $nivel1; ?>"><?php echo $nivel1; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <label for="tipologia_nivel2"><?php echo "Nível 2"; ?></label>
+            <select name="tipologia_nivel2" id="tipologia_nivel2">
+                <?php
+                foreach($n2 as $nivel2) {
+                    if(is_array($nivel2)) {
+                        foreach ($nivel2 as $mais) { ?>
+                            <option value="<?php echo $mais; ?>"> <?php echo $mais; ?> </option>
+                        <?php }
+                    }
+                } ?>
+            </select>
+            <label for="tipologia_nivel3"><?php echo "Nível 3"; ?></label>
+            <select name="tipologia_nivel3" id="tipologia_nivel3">
+                <?php
+                foreach($n3 as $nivel3) {
+                    if(is_array($nivel3)) {
+                        foreach ($nivel3 as $mais) { ?>
+                            <option value="<?php echo $mais; ?>"> <?php echo $mais; ?> </option>
+                        <?php }
+                    }
+                } ?>
+            </select>
+            <?php
+        });
+
         $app->hook('template(space.<<create|edit|single>>.tab-about-service):before', function(){
             $this->part('mais-campos', ['entity' => $this->data->entity]);
         });
