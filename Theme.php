@@ -88,16 +88,15 @@ class Theme extends Subsite\Theme{
         });
 
         $app->hook('mapasculturais.add_entity_modal.tipologias_agentes', function($entity, $modal_id) {
-            $tipologias_individuais = $tipologias_coletivas = [];
             if (!isset($this->jsObject['agentTypesIndividuais']) && empty($this->jsObject['agentTypesIndividuais'])) {
                 $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
-                $tipologias_individuais = $this->jsObject['agentTypesIndividuais'];
             }
+            $tipologias_individuais = $this->jsObject['agentTypesIndividuais'];
 
             if (!isset($this->jsObject['agentTypes']) && empty($this->jsObject['agentTypes'])) {
                 $this->jsObject['agentTypes'] = require __DIR__ . '/tipologia-agentes.php';
-                $tipologias_coletivas = $this->jsObject['agentTypes'];
             }
+            $tipologias_coletivas = $this->jsObject['agentTypes'];
 
             if (isset($tipologias_individuais) && isset($tipologias_coletivas)) {
 
