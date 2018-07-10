@@ -108,6 +108,7 @@ class Theme extends Subsite\Theme{
                         return "<option value='$c'>$v</option>";
                     }
                 }, $tipologias_individuais);
+                array_unshift($html, "<option value=''></option>");
                 $n1 = array_keys($tipologias_coletivas);
                 ?>
                 <div class="tipologias individuais">
@@ -121,6 +122,7 @@ class Theme extends Subsite\Theme{
                 <div class="tipologias coletivas hidden">
                     <label for="tipologia_nivel1"><?php echo "Nível 1"; ?></label>
                     <select name="tipologia_nivel1" id="tipologia_nivel1">
+                        <option value=""></option>
                         <?php foreach ($n1 as $nivel1):
                             $chave = array_keys($tipologias_coletivas[$nivel1]);
                             $n2[] = $chave;
@@ -135,6 +137,7 @@ class Theme extends Subsite\Theme{
                     </select>
                     <label for="tipologia_nivel2"><?php echo "Nível 2"; ?></label>
                     <select name="tipologia_nivel2" id="tipologia_nivel2">
+                        <option value=""></option>
                         <?php
                         if( isset($n2) && is_array($n2)) {
                             foreach ($n2 as $nivel2) {
@@ -148,6 +151,7 @@ class Theme extends Subsite\Theme{
                     </select>
                     <label for="tipologia_nivel3"><?php echo "Nível 3"; ?></label>
                     <select name="tipologia_nivel3" id="tipologia_nivel3">
+                        <option value=""></option>
                         <?php
                         if( isset($n3) && is_array($n3)) {
                             foreach ($n3 as $nivel3) {
