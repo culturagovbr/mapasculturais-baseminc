@@ -87,8 +87,7 @@ class Theme extends Subsite\Theme{
             $this->part('tipologia-agente', ['entity' => $this->data->entity]);
         });
 
-        $app->hook('mapasculturais.add_entity_modal.tipologias_agentes', function($entity) {
-
+        $app->hook('mapasculturais.add_entity_modal.tipologias_agentes', function($entity, $modal_id) {
             $tipologias_individuais = $tipologias_coletivas = [];
             if (!isset($this->jsObject['agentTypesIndividuais']) && empty($this->jsObject['agentTypesIndividuais'])) {
                 $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
@@ -102,22 +101,23 @@ class Theme extends Subsite\Theme{
 
             if (isset($tipologias_individuais) && isset($tipologias_coletivas)) {
 
+                $html = array_map(function ($array) {
+                    foreach ($array['ocupacoes'] as $ocup) {
+                        $c = $ocup['codigo'];
+                        $v = $ocup['ocupacao'];
+
+                        return "<option value='$c'>$v</option>";
+                    }
+                }, $tipologias_individuais);
                 $n1 = array_keys($tipologias_coletivas);
                 ?>
                 <div class="tipologias individuais">
-                    <select name="tipologia_individual_cbo_cod" id="tipologia_individual_cbo_cod"
-                            class="tipologias-individuais-agente">
-                        <?php
-                        array_map(function ($array) {
-                            foreach ($array['ocupacoes'] as $ocup) {
-                                $c = $ocup['codigo'];
-                                $v = $ocup['ocupacao'];
 
-                                echo "<option value='$c'>$v</option>";
-                            }
-                        }, $tipologias_individuais);
-                        ?>
+                    <select name="tipologia_individual_cbo_cod" id="tipologia_individual_cbo_cod" data-modal="<?php echo $modal_id?>"
+                            class="tipologias-individuais-agente">
+                        <?php array_map(function($e) { echo $e; }, $html ); ?>
                     </select>
+                    <input type="hidden" name="tipologia_individual_cbo_ocupacao" value="">
                 </div>
                 <div class="tipologias coletivas hidden">
                     <label for="tipologia_nivel1"><?php echo "Nível 1"; ?></label>
