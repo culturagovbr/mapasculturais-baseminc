@@ -52,9 +52,18 @@ class Theme extends Subsite\Theme{
             }
         });
 
-        $app->hook('view.render(agent/<<create|edit|single>>):before', function(){
-            $this->jsObject['agentTypes'] = require __DIR__ . '/tipologia-agentes.php';
-            $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
+        $app->hook('view.render(agent/<<create|edit|single>>):before', function() {
+            /*
+             * Valores já podem ter sido carregados para o modal de agentes.
+             * Assim, evitamos a redundância de sobrescrever as tipologias com os mesmos valores
+             * */
+            if (!isset($this->jsObject['agentTypes'])) {
+                $this->jsObject['agentTypes'] = require __DIR__ . '/tipologia-agentes.php';
+            }
+
+            if (!isset($this->jsObject['agentTypesIndividuais'])) {
+                $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
+            }
         });
 
         $app->hook('entity(<<Agent|Space|Event|Project>>).save:after', function() use ($app){
@@ -80,66 +89,82 @@ class Theme extends Subsite\Theme{
 
         $app->hook('mapasculturais.add_entity_modal.tipologias_agentes', function($entity) {
 
-            $tipologias_coletivas   = require __DIR__ . '/tipologia-agentes.php';
-            $tipologias_individuais = require __DIR__ . '/tipologia-agentes-individuais.php';
-            // $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
+            $tipologias_individuais = $tipologias_coletivas = [];
+            if (!isset($this->jsObject['agentTypesIndividuais']) && empty($this->jsObject['agentTypesIndividuais'])) {
+                $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
+                $tipologias_individuais = $this->jsObject['agentTypesIndividuais'];
+            }
 
-            $n1 = array_keys($tipologias_coletivas);
-            ?>
-            <div class="tipologias individuais">
-                <select name="tipologia_individual_cbo_cod" id="tipologia_individual_cbo_cod" class="tipologias-individuais-agente">
-                    <?php
-                    array_map(function($array) {
-                        foreach ($array['ocupacoes'] as $ocup) {
-                            $c = $ocup['codigo'];
-                            $v = $ocup['ocupacao'];
+            if (!isset($this->jsObject['agentTypes']) && empty($this->jsObject['agentTypes'])) {
+                $this->jsObject['agentTypes'] = require __DIR__ . '/tipologia-agentes.php';
+                $tipologias_coletivas = $this->jsObject['agentTypes'];
+            }
 
-                            echo "<option value='$c'>$v</option>";
-                        }
-                    }, $tipologias_individuais);
-                    ?>
-                </select>
-            </div>
-            <div class="tipologias coletivas hidden">
-                <label for="tipologia_nivel1"><?php echo "Nível 1"; ?></label>
-                <select name="tipologia_nivel1" id="tipologia_nivel1">
-                    <?php foreach($n1 as $nivel1):
-                        $chave = array_keys($tipologias_coletivas[$nivel1]);
-                        $n2[] = $chave;
-                        if (is_array($chave)) {
-                            foreach ($chave as $k => $publica) {
-                                $n3[] = $tipologias_coletivas[$nivel1][$publica];
+            if (isset($tipologias_individuais) && isset($tipologias_coletivas)) {
+
+                $n1 = array_keys($tipologias_coletivas);
+                ?>
+                <div class="tipologias individuais">
+                    <select name="tipologia_individual_cbo_cod" id="tipologia_individual_cbo_cod"
+                            class="tipologias-individuais-agente">
+                        <?php
+                        array_map(function ($array) {
+                            foreach ($array['ocupacoes'] as $ocup) {
+                                $c = $ocup['codigo'];
+                                $v = $ocup['ocupacao'];
+
+                                echo "<option value='$c'>$v</option>";
                             }
-                        }
+                        }, $tipologias_individuais);
                         ?>
-                        <option value="<?php echo $nivel1; ?>"><?php echo $nivel1; ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <label for="tipologia_nivel2"><?php echo "Nível 2"; ?></label>
-                <select name="tipologia_nivel2" id="tipologia_nivel2">
-                    <?php
-                    foreach($n2 as $nivel2) {
-                        if(is_array($nivel2)) {
-                            foreach ($nivel2 as $mais) { ?>
-                                <option value="<?php echo $mais; ?>"> <?php echo $mais; ?> </option>
-                            <?php }
-                        }
-                    } ?>
-                </select>
-                <label for="tipologia_nivel3"><?php echo "Nível 3"; ?></label>
-                <select name="tipologia_nivel3" id="tipologia_nivel3">
-                    <?php
-                    foreach($n3 as $nivel3) {
-                        if(is_array($nivel3)) {
-                            foreach ($nivel3 as $mais) { ?>
-                                <option value="<?php echo $mais; ?>"> <?php echo $mais; ?> </option>
-                            <?php }
-                        }
-                    } ?>
-                </select>
-            </div>
+                    </select>
+                </div>
+                <div class="tipologias coletivas hidden">
+                    <label for="tipologia_nivel1"><?php echo "Nível 1"; ?></label>
+                    <select name="tipologia_nivel1" id="tipologia_nivel1">
+                        <?php foreach ($n1 as $nivel1):
+                            $chave = array_keys($tipologias_coletivas[$nivel1]);
+                            $n2[] = $chave;
+                            if (is_array($chave)) {
+                                foreach ($chave as $k => $publica) {
+                                    $n3[] = $tipologias_coletivas[$nivel1][$publica];
+                                }
+                            }
+                            ?>
+                            <option value="<?php echo $nivel1; ?>"><?php echo $nivel1; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <label for="tipologia_nivel2"><?php echo "Nível 2"; ?></label>
+                    <select name="tipologia_nivel2" id="tipologia_nivel2">
+                        <?php
+                        if( isset($n2) && is_array($n2)) {
+                            foreach ($n2 as $nivel2) {
+                                if (is_array($nivel2)) {
+                                    foreach ($nivel2 as $mais) { ?>
+                                        <option value="<?php echo $mais; ?>"> <?php echo $mais; ?> </option>
+                                    <?php }
+                                }
+                            }
+                        } ?>
+                    </select>
+                    <label for="tipologia_nivel3"><?php echo "Nível 3"; ?></label>
+                    <select name="tipologia_nivel3" id="tipologia_nivel3">
+                        <?php
+                        if( isset($n3) && is_array($n3)) {
+                            foreach ($n3 as $nivel3) {
+                                if (is_array($nivel3)) {
+                                    foreach ($nivel3 as $mais) { ?>
+                                        <option value="<?php echo $mais; ?>"> <?php echo $mais; ?> </option>
+                                    <?php }
+                                }
+                            }
+                        }?>
+                    </select>
+                </div>
 
-            <?php
+                <?php
+            } // endif
+
         });
 
         $app->hook('template(space.<<create|edit|single>>.tab-about-service):before', function(){
