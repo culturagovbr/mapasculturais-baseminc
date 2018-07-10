@@ -28,11 +28,13 @@ $(document).ready(function() {
         });
 
         var nivel1 = 'select[name="tipologia_nivel1"]';
+        var nivel2 = 'select[name="tipologia_nivel2"]';
         $(nivel1).change(function () {
            var selected = $("option:selected:first",this).val();
            if (selected && selected.length > 0) {
                var selected_class = $("option:selected:first", this).attr('class');
                $(".nivel2").show();
+               $(nivel2).val(0);
                hideIfNot(selected_class);
            } else {
                $(".nivel2").hide();
