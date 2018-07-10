@@ -140,38 +140,42 @@ class Theme extends Subsite\Theme{
                         endforeach;
                         ?>
                     </select>
-                    <label for="tipologia_nivel2"><?php echo "Nível 2"; ?></label>
-                    <select name="tipologia_nivel2" id="tipologia_nivel2">
-                        <option value=""></option>
-                        <?php
-                        $n = 0;
-                        if (isset($n2) && is_array($n2)) {
-                            foreach ($n2 as $nivel2) {
-                                if (is_array($nivel2)) {
-                                    foreach ($nivel2 as $mais) { ?>
-                                        <option value="<?php echo $mais; ?>" class="nivel-<?php echo $n; ?>"> <?php echo $mais; ?> </option>
-                                    <?php }
-                                    $n++;
+                    <div class="nivel2 hidden">
+                        <label for="tipologia_nivel2"><?php echo "Nível 2"; ?></label>
+                        <select name="tipologia_nivel2" id="tipologia_nivel2">
+                            <option value=""></option>
+                            <?php
+                            $n = 0;
+                            if (isset($n2) && is_array($n2)) {
+                                foreach ($n2 as $nivel2) {
+                                    if (is_array($nivel2)) {
+                                        foreach ($nivel2 as $mais) { ?>
+                                            <option value="<?php echo $mais; ?>" class="nivel-<?php echo $n; ?>"> <?php echo $mais; ?> </option>
+                                        <?php }
+                                        $n++;
+                                    }
                                 }
-                            }
-                        } ?>
-                    </select>
-                    <label for="tipologia_nivel3"><?php echo "Nível 3"; ?></label>
-                    <select name="tipologia_nivel3" id="tipologia_nivel3">
-                        <option value=""></option>
-                        <?php
-                        $n = 0;
-                        if (isset($n3) && is_array($n3)) {
-                            foreach ($n3 as $nivel3) {
-                                if (is_array($nivel3)) {
-                                    foreach ($nivel3 as $mais) { ?>
-                                        <option value="<?php echo $mais; ?>" class="nivel-<?php echo $n; ?>"> <?php echo $mais; ?> </option>
-                                    <?php }
-                                    $n++;
+                            } ?>
+                        </select>
+                    </div>
+                    <div class="nivel3 hidden">
+                        <label for="tipologia_nivel3"><?php echo "Nível 3"; ?></label>
+                        <select name="tipologia_nivel3" id="tipologia_nivel3">
+                            <option value=""></option>
+                            <?php
+                            $n = 0;
+                            if (isset($n3) && is_array($n3)) {
+                                foreach ($n3 as $nivel3) {
+                                    if (is_array($nivel3)) {
+                                        foreach ($nivel3 as $mais) { ?>
+                                            <option value="<?php echo $mais; ?>" class="nivel-<?php echo $n; ?>"> <?php echo $mais; ?> </option>
+                                        <?php }
+                                        $n++;
+                                    }
                                 }
-                            }
-                        }?>
-                    </select>
+                            }?>
+                        </select>
+                    </div>
                 </div>
 
                 <?php

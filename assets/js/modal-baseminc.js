@@ -29,9 +29,15 @@ $(document).ready(function() {
 
         var nivel1 = 'select[name="tipologia_nivel1"]';
         $(nivel1).change(function () {
-           // var selected = $("option:selected:first",this).val();
-           var selected_class = $("option:selected:first", this).attr('class');
-            hideIfNot(selected_class);
+           var selected = $("option:selected:first",this).val();
+           if (selected && selected.length > 0) {
+               var selected_class = $("option:selected:first", this).attr('class');
+               $(".nivel2").show();
+               hideIfNot(selected_class);
+           } else {
+               $(".nivel2").hide();
+           }
+
         });
     }
 
