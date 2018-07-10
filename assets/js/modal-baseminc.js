@@ -26,5 +26,32 @@ $(document).ready(function() {
 
             $('#' + current_modal + ' input[name="tipologia_individual_cbo_ocupacao"]').val(t);
         });
+
+        var nivel1 = 'select[name="tipologia_nivel1"]';
+        $(nivel1).change(function () {
+           // var selected = $("option:selected:first",this).val();
+           var selected_class = $("option:selected:first", this).attr('class');
+            hideIfNot(selected_class);
+        });
+    }
+
+    function hideIfNot(className) {
+        var options = 'select[name="tipologia_nivel2"] > option';
+        $(options).show();
+        $(options).each(function (idx, el) {
+            var opt_class = $(el).attr('class'); // console.log( $(this).attr('class') );
+            if (opt_class !== className) {
+                $(this).hide();
+            }
+        });
+
+        var options = 'select[name="tipologia_nivel3"] > option';
+        $(options).show();
+        $(options).each(function (idx, el) {
+            var opt_class = $(el).attr('class'); // console.log( $(this).attr('class') );
+            if (opt_class !== className) {
+                $(this).hide();
+            }
+        });
     }
 });

@@ -123,7 +123,9 @@ class Theme extends Subsite\Theme{
                     <label for="tipologia_nivel1"><?php echo "Nível 1"; ?></label>
                     <select name="tipologia_nivel1" id="tipologia_nivel1">
                         <option value=""></option>
-                        <?php foreach ($n1 as $nivel1):
+                        <?php
+                        $n = 0;
+                        foreach ($n1 as $nivel1):
                             $chave = array_keys($tipologias_coletivas[$nivel1]);
                             $n2[] = $chave;
                             if (is_array($chave)) {
@@ -132,19 +134,24 @@ class Theme extends Subsite\Theme{
                                 }
                             }
                             ?>
-                            <option value="<?php echo $nivel1; ?>"><?php echo $nivel1; ?></option>
-                        <?php endforeach; ?>
+                            <option value="<?php echo $nivel1; ?>" class="nivel-<?php echo $n; ?>"><?php echo $nivel1; ?></option>
+                        <?php
+                        $n++;
+                        endforeach;
+                        ?>
                     </select>
                     <label for="tipologia_nivel2"><?php echo "Nível 2"; ?></label>
                     <select name="tipologia_nivel2" id="tipologia_nivel2">
                         <option value=""></option>
                         <?php
-                        if( isset($n2) && is_array($n2)) {
+                        $n = 0;
+                        if (isset($n2) && is_array($n2)) {
                             foreach ($n2 as $nivel2) {
                                 if (is_array($nivel2)) {
                                     foreach ($nivel2 as $mais) { ?>
-                                        <option value="<?php echo $mais; ?>"> <?php echo $mais; ?> </option>
+                                        <option value="<?php echo $mais; ?>" class="nivel-<?php echo $n; ?>"> <?php echo $mais; ?> </option>
                                     <?php }
+                                    $n++;
                                 }
                             }
                         } ?>
@@ -153,12 +160,14 @@ class Theme extends Subsite\Theme{
                     <select name="tipologia_nivel3" id="tipologia_nivel3">
                         <option value=""></option>
                         <?php
-                        if( isset($n3) && is_array($n3)) {
+                        $n = 0;
+                        if (isset($n3) && is_array($n3)) {
                             foreach ($n3 as $nivel3) {
                                 if (is_array($nivel3)) {
                                     foreach ($nivel3 as $mais) { ?>
-                                        <option value="<?php echo $mais; ?>"> <?php echo $mais; ?> </option>
+                                        <option value="<?php echo $mais; ?>" class="nivel-<?php echo $n; ?>"> <?php echo $mais; ?> </option>
                                     <?php }
+                                    $n++;
                                 }
                             }
                         }?>
