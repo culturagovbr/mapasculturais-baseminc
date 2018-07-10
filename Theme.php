@@ -87,25 +87,25 @@ class Theme extends Subsite\Theme{
 
             $tipologias_coletivas   = require __DIR__ . '/tipologia-agentes.php';
             $tipologias_individuais = require __DIR__ . '/tipologia-agentes-individuais.php';
-            // $tipologias_individuais = $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
-
-            /*
-            foreach ($tipologias_individuais as $ocp) {
-                if (is_array($ocp)) {
-                    foreach ($ocp as $o) {
-                        \dump($o);
-
-                    }
-                }
-            } */
+            // $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
 
             $n1 = array_keys($tipologias_coletivas);
             ?>
             <div class="tipologias individuais">
-                <h4> Tipologias Individuais </h4>
+                <select name="tipologia_individual_cbo_cod" id="tipologia_individual_cbo_cod" class="tipologias-individuais-agente">
+                    <?php
+                    array_map(function($array) {
+                        foreach ($array['ocupacoes'] as $ocup) {
+                            $c = $ocup['codigo'];
+                            $v = $ocup['ocupacao'];
+
+                            echo "<option value='$c'>$v</option>";
+                        }
+                    }, $tipologias_individuais);
+                    ?>
+                </select>
             </div>
             <div class="tipologias coletivas hidden">
-                <h4> Tipologias Coletivas </h4>
                 <label for="tipologia_nivel1"><?php echo "Nível 1"; ?></label>
                 <select name="tipologia_nivel1" id="tipologia_nivel1">
                     <?php foreach($n1 as $nivel1):

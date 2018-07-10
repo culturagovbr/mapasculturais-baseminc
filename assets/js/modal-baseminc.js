@@ -13,5 +13,9 @@ $(document).ready(function() {
             $(_toggable).toggle();
 
         });
+
+        $('.tipologias-individuais-agente').select2({
+            width: '100%'
+        });
     }
 });
