@@ -29,22 +29,38 @@ $(document).ready(function() {
 
         var nivel1 = 'select[name="tipologia_nivel1"]';
         var nivel2 = 'select[name="tipologia_nivel2"]';
+        var nivel3 = 'select[name="tipologia_nivel3"]';
         $(nivel1).change(function () {
            var selected = $("option:selected:first",this).val();
            if (selected && selected.length > 0) {
                var selected_class = $("option:selected:first", this).attr('class');
                $(".nivel2").show();
                $(nivel2).val(0);
-               hideIfNot(selected_class);
+               hideIfNot(selected_class, (nivel2 + ' > option') );
            } else {
                $(".nivel2").hide();
            }
+        });
 
+        $(nivel2).change(function () {
+            var selected = $("option:selected:first",this).val();
+            if (selected && selected.length > 0) {
+                var selected_class = $("option:selected:first", this).attr('class');
+                $(".nivel3").show();
+                $(nivel3).val(0);
+
+                console.log(selected);
+                console.log(selected_class);
+
+                hideIfNot(selected_class, (nivel3 + ' > option') );
+            } else {
+                $(".nivel3").hide();
+            }
         });
     }
 
-    function hideIfNot(className) {
-        var options = 'select[name="tipologia_nivel2"] > option';
+    function hideIfNot(className, options) {
+        // var options = 'select[name="tipologia_nivel2"] > option';
         $(options).show();
         $(options).each(function (idx, el) {
             var opt_class = $(el).attr('class'); // console.log( $(this).attr('class') );
@@ -53,6 +69,7 @@ $(document).ready(function() {
             }
         });
 
+        /*
         var options = 'select[name="tipologia_nivel3"] > option';
         $(options).show();
         $(options).each(function (idx, el) {
@@ -60,6 +77,6 @@ $(document).ready(function() {
             if (opt_class !== className) {
                 $(this).hide();
             }
-        });
+        }); */
     }
 });

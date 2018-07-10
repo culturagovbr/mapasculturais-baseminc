@@ -112,7 +112,6 @@ class Theme extends Subsite\Theme{
                 $n1 = array_keys($tipologias_coletivas);
                 ?>
                 <div class="tipologias individuais">
-
                     <select name="tipologia_individual_cbo_cod" id="tipologia_individual_cbo_cod" data-modal="<?php echo $modal_id?>"
                             class="tipologias-individuais-agente">
                         <?php array_map(function($e) { echo $e; }, $html ); ?>
@@ -167,9 +166,12 @@ class Theme extends Subsite\Theme{
                             if (isset($n3) && is_array($n3)) {
                                 foreach ($n3 as $nivel3) {
                                     if (is_array($nivel3)) {
+                                        $j = 0;
                                         foreach ($nivel3 as $mais) { ?>
-                                            <option value="<?php echo $mais; ?>" class="nivel-<?php echo $n; ?>"> <?php echo $mais; ?> </option>
-                                        <?php }
+                                            <option value="<?php echo $mais; ?>" class="nivel-<?php echo $n; ?>-<?php echo $j; ?>"> <?php echo $mais; ?> </option>
+                                        <?php
+                                            $j++;
+                                        }
                                         $n++;
                                     }
                                 }
