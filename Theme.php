@@ -87,6 +87,10 @@ class Theme extends Subsite\Theme{
             $this->part('tipologia-agente', ['entity' => $this->data->entity]);
         });
 
+        /**
+         * @param $entity
+         * @param $modal_id
+         */
         $app->hook('mapasculturais.add_entity_modal.tipologias_agentes', function($entity, $modal_id) {
             if (!isset($this->jsObject['agentTypesIndividuais']) && empty($this->jsObject['agentTypesIndividuais'])) {
                 $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
@@ -129,7 +133,8 @@ class Theme extends Subsite\Theme{
                             $n2[] = $chave;
                             if (is_array($chave)) {
                                 foreach ($chave as $k => $publica) {
-                                    $n3[] = $tipologias_coletivas[$nivel1][$publica];
+                                    $original[] = $tipologias_coletivas[$nivel1][$publica];
+                                    $n3[$publica] = $tipologias_coletivas[$nivel1][$publica];
                                 }
                             }
                             ?>
@@ -139,6 +144,7 @@ class Theme extends Subsite\Theme{
                         endforeach;
                         ?>
                     </select>
+
                     <div class="nivel2 hidden">
                         <label for="tipologia_nivel2"><?php echo "Nível 2"; ?></label>
                         <select name="tipologia_nivel2" id="tipologia_nivel2">
@@ -164,18 +170,13 @@ class Theme extends Subsite\Theme{
                             <?php
                             $n = 0;
                             if (isset($n3) && is_array($n3)) {
-                                foreach ($n3 as $nivel3) {
-                                    if (is_array($nivel3)) {
-                                        $j = 0;
-                                        foreach ($nivel3 as $mais) { ?>
-                                            <option value="<?php echo $mais; ?>" class="nivel-<?php echo $n; ?>-<?php echo $j; ?>"> <?php echo $mais; ?> </option>
-                                        <?php
-                                            $j++;
-                                        }
-                                        $n++;
+                                foreach ($n3 as $nivel2 => $children) {
+                                    foreach ($children as $k => $child) {
+                                        echo "<option value='$child' class='nivel-$k' data-parent='$nivel2'> $child </option>";
                                     }
                                 }
-                            }?>
+                            }
+                            ?>
                         </select>
                     </div>
                 </div>

@@ -36,7 +36,8 @@ $(document).ready(function() {
                var selected_class = $("option:selected:first", this).attr('class');
                $(".nivel2").show();
                $(nivel2).val(0);
-               hideIfNot(selected_class, (nivel2 + ' > option') );
+               $(nivel3).val(0);
+               hideIfNot(selected_class, (nivel2 + ' > option'), 'class');
            } else {
                $(".nivel2").hide();
            }
@@ -48,35 +49,36 @@ $(document).ready(function() {
                 var selected_class = $("option:selected:first", this).attr('class');
                 $(".nivel3").show();
                 $(nivel3).val(0);
-
-                console.log(selected);
-                console.log(selected_class);
-
-                hideIfNot(selected_class, (nivel3 + ' > option') );
+                hideIfNot(selected, (nivel3 + ' > option'), 'parent');
             } else {
                 $(".nivel3").hide();
             }
         });
     }
 
-    function hideIfNot(className, options) {
-        // var options = 'select[name="tipologia_nivel2"] > option';
-        $(options).show();
-        $(options).each(function (idx, el) {
-            var opt_class = $(el).attr('class'); // console.log( $(this).attr('class') );
-            if (opt_class !== className) {
-                $(this).hide();
+    function hideIfNot(className, options, compare_param) {
+        if (className && options && compare_param) {
+            if (compare_param === 'class' || compare_param === 'parent') {
+                $(options).show();
+                $(options).each(function (idx, el) {
+                    var opt_class = getCompareVal(el,compare_param);
+                    if (opt_class !== className) {
+                        $(this).hide();
+                    }
+                });
+            } else {
+                return false;
             }
-        });
-
-        /*
-        var options = 'select[name="tipologia_nivel3"] > option';
-        $(options).show();
-        $(options).each(function (idx, el) {
-            var opt_class = $(el).attr('class'); // console.log( $(this).attr('class') );
-            if (opt_class !== className) {
-                $(this).hide();
-            }
-        }); */
+        }
     }
+
+    function getCompareVal(e, key) {
+        var _return = $(e).attr('class');
+        if (key && key === 'parent') {
+            _return = $(e).data(key);
+        }
+
+        return _return;
+    }
+
 });
