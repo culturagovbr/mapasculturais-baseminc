@@ -87,6 +87,10 @@ class Theme extends Subsite\Theme{
             $this->part('tipologia-agente', ['entity' => $this->data->entity]);
         });
 
+        $app->hook('mapasculturais.add_entity_modal.wrapper_class', function(&$extra_wrapper_classes) {
+            $extra_wrapper_classes = 'baseminc-modal';
+        });
+
         /**
          * @param $entity
          * @param $modal_id
