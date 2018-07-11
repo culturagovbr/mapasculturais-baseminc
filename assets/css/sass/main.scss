@@ -87,3 +87,12 @@ article.opportunity .header-image, article.registration .header-image {
 .icon-project:before {
   content: ""; }
 
+.baseminc-modal {
+  .tipologias {
+    margin-bottom: 15px;
+    .tipologias-individuais-agente {
+      max-width: unset !important;
+    }
+  }
+
+} // baseminc-modal

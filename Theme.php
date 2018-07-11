@@ -119,9 +119,9 @@ class Theme extends Subsite\Theme{
                 array_unshift($html, "<option value=''></option>");
                 $n1 = array_keys($tipologias_coletivas);
                 ?>
-                <div class="tipologias individuais">
+                <div class="tipologias individuais" style="margin-bottom: 15px;">
                     <select name="tipologia_individual_cbo_cod" id="tipologia_individual_cbo_cod" data-modal="<?php echo $modal_id?>"
-                            class="tipologias-individuais-agente">
+                            class="tipologias-individuais-agente" style="max-width: unset !important;">
                         <?php array_map(function($e) { echo $e; }, $html ); ?>
                     </select>
                     <input type="hidden" name="tipologia_individual_cbo_ocupacao" value="">
