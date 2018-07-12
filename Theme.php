@@ -357,12 +357,30 @@ class Theme extends Subsite\Theme{
                     'label' => 'Nº SNIIC:',
                     'private' => false
                 ],
+                'tipologia_individual_cbo_ocupacao' => [
+                    'label' => 'Ocupação Tipologia Individual (CBO)',
+                    'private' => false
+                ],
+                'tipologia_individual_cbo_cod' => [
+                    'label' => 'Código Tipologia Individual (CBO)',
+                    'private' => false
+                ],
+                'tipologia_nivel1' => [
+                    'label' => 'Tipologia Nível 1',
+                    'private' => false
+                ],
+                'tipologia_nivel2' => [
+                    'label' => 'Tipologia Nível 2',
+                    'private' => false,
+                ],
+                'tipologia_nivel3' => [
+                    'label' => 'Tipologia Nível 3',
+                    'private' => false,
+                ]
             ]
         ];
 
-        if ($this->getTypology()) {
-            $this->setTypologiesValidations($metadata);
-        };
+        $this->setTypologiesValidations($metadata);
 
         $prefix = $this->getMetadataPrefix();
 
@@ -409,56 +427,36 @@ class Theme extends Subsite\Theme{
     }
 
     private function setTypologiesValidations(&$array_key = []) {
-
+        $_agent_key = 'MapasCulturais\Entities\Agent';
         if ($tipo = $this->getTypology()) {
-            $_agent_key = 'MapasCulturais\Entities\Agent';
             /*
              * 1 = Tipologia Individual
              * 2 = Tipologia Coletiva
              */
             if (1 == $tipo) {
-                $array_key[$_agent_key]['tipologia_individual_cbo_ocupacao'] = [
-                    'label' => 'Ocupação Tipologia Individual (CBO)',
-                    'private' => false,
-                    'validations' => [
-                        'required' => \MapasCulturais\i::__('Informe a ocupação CBO!')
-                    ]
+                $array_key[$_agent_key]['tipologia_individual_cbo_ocupacao']['validations'] = [
+                        'required' => \MapasCulturais\i::__('Informe a tipologia')
                 ];
 
-                $array_key[$_agent_key]['tipologia_individual_cbo_cod'] = [
-                    'label' => 'Código Tipologia Individual (CBO)',
-                    'private' => false,
-                    'required' => true,
-                    'validations' => [
-                        'v::not(v::falseVal())' => 'Selectione a tipologia individual para este agente!'
-                    ]
+                $array_key[$_agent_key]['tipologia_individual_cbo_cod']['required'] = true;
+                $array_key[$_agent_key]['tipologia_individual_cbo_cod']['validations'] = [
+                    'v::not(v::falseVal())' => 'Selectione a tipologia individual para este agente!'
                 ];
             } else if (2 == $tipo) {
-                $array_key[$_agent_key]['tipologia_nivel1'] = [
-                    'label' => 'Tipologia Nível 1',
-                    'private' => false,
-                    'required' => true,
-                    'validations' => [
+                $array_key[$_agent_key]['tipologia_nivel1']['required'] = true;
+                $array_key[$_agent_key]['tipologia_nivel2']['required'] = true;
+                $array_key[$_agent_key]['tipologia_nivel3']['required'] = true;
+
+                $array_key[$_agent_key]['tipologia_nivel1']['validations'] = [
                         'required' => \MapasCulturais\i::__('Informe o nível 1 da tipologia')
-                    ]
                 ];
-                  $array_key[$_agent_key]['tipologia_nivel2'] = [
-                        'label' => 'Tipologia Nível 2',
-                        'private' => false,
-                        'required' => true,
-                        'validations' => [
-                            'required' => \MapasCulturais\i::__('Informe o nível 2 da tipologia')
-                        ]
-                    ];
-                  $array_key[$_agent_key]['tipologia_nivel3'] = [
-                        'label' => 'Tipologia Nível 3',
-                        'private' => false,
-                        'required' => true,
-                        'validations' => [
-                            'required' => \MapasCulturais\i::__('Informe o nível 3 da tipologia'),
-                            'v::not(v::falseVal())' => 'Preencha todos os níveis da tipologia coletiva!'
-                        ]
-                    ];
+                $array_key[$_agent_key]['tipologia_nivel2']['validations'] = [
+                    'required' => \MapasCulturais\i::__('Informe o nível 2 da tipologia')
+                ];
+                $array_key[$_agent_key]['tipologia_nivel3']['validations'] = [
+                    'required' => \MapasCulturais\i::__('Informe o nível 3 da tipologia'),
+                    'v::not(v::falseVal())' => 'Preencha todos os níveis da tipologia coletiva!'
+                ];
             } else {
                 return $array_key;
             }
