@@ -12,8 +12,12 @@
         var n2 = MapasCulturais.entity.tipologia_nivel2;
         var n3 = MapasCulturais.entity.tipologia_nivel3;
         var cbo_cod = MapasCulturais.entity.tipologia_individual_cbo_cod;
-        var cbo_ocupacao = MapasCulturais.entity.tipologia_individual_cbo_ocupacao;        
-        
+        var cbo_ocupacao = MapasCulturais.entity.tipologia_individual_cbo_ocupacao;
+
+        if (n1 && n2 && n3 && !cbo_cod && !cbo_ocupacao) {
+            type = 2;
+        }
+
         typesColetivos.__values = Object.keys(typesColetivos);
         typesColetivos.__values.forEach(function(val){
             typesColetivos[val].__values = Object.keys(typesColetivos[val]);
