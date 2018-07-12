@@ -41,7 +41,11 @@
                 e.preventDefault();
             });
 
-            $('.js-editable-type').on('save', function(e, params) {
+            var classType = ''
+            if(MapasCulturais.request.controller == 'space')
+                classType = 'Linked';
+
+            $('.js-editable-type' + classType).on('save', function(e, params) {
                 /*
                     Ao inicializar os valores das tipologias com o valor "false" faz com que as regras de validação dos metadados sejam desrespeitadas.
                     ao selecionar uma tipologia para um determinado tipo os valores dos campos da tipologia para o outro tipo de agente terão seus valores uma string vazia

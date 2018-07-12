@@ -52,7 +52,7 @@ class Theme extends Subsite\Theme{
             }
         });
 
-        $app->hook('view.render(agent/<<create|edit|single>>):before', function() {
+        $app->hook('view.render(<<agent|space>>/<<create|edit|single>>):before', function() {
             /*
              * Valores já podem ter sido carregados para o modal de agentes.
              * Assim, evitamos a redundância de sobrescrever as tipologias com os mesmos valores
@@ -64,6 +64,16 @@ class Theme extends Subsite\Theme{
             if (!isset($this->jsObject['agentTypesIndividuais'])) {
                 $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
             }
+        });
+        
+        $app->hook('mapasculturais.linkedAgentSpaceMetatados', function(&$metadataEntity) {
+            $metadataEntity['agent'] = array(
+                'tipologia_nivel1',
+                'tipologia_nivel2',
+                'tipologia_nivel3',
+                'tipologia_individual_cbo_cod',
+                'tipologia_individual_cbo_ocupacao'
+            );
         });
 
         $app->hook('entity(<<Agent|Space|Event|Project>>).save:after', function() use ($app){
