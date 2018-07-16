@@ -55,10 +55,14 @@
         <div class="icon icon-agent"></div>
         <a href="#">
             <?php
-                if ($entity->type == '2' && $entity->tipologia_nivel3 != "") {
+                $type = "type";
+                if($entity->isLinkedAgentSpace() && $entity->entityType == 'Space')
+                    $type .= "Linked";
+
+                if ($entity->$type == '2' && $entity->tipologia_nivel3 != "") {
                     echo $entity->tipologia_nivel3;
                 } else {
-                    if ($entity->type == '1' && $entity->tipologia_individual_cbo_cod != "" ) {
+                    if ($entity->$type == '1' && $entity->tipologia_individual_cbo_cod != "" ) {
                         echo "$entity->tipologia_individual_cbo_cod - $entity->tipologia_individual_cbo_ocupacao";                    
                     } else {
                         echo "--";                        
