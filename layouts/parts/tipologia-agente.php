@@ -1,5 +1,10 @@
 <?php if ($this->isEditable()): ?>
-<div class="entity-type agent-type" ng-controller="AgentTypesController">
+    <?php
+        $type = "type";
+        if($entity->isLinkedAgentSpace() && $entity->entityType == 'Space')
+            $type .= "Linked";
+    ?>
+<div class="entity-type agent-type <?php echo ($type == 'typeLinked') ? 'entityLinked' : ''; ?>" ng-controller="AgentTypesController">
     <div class="icon icon-agent"></div>
 
     <a id="edit-tipologia" class="required editable" ng-click="openModalType($event)"> {{getCurrentTypology()}}</a>
@@ -55,10 +60,6 @@
         <div class="icon icon-agent"></div>
         <a href="#">
             <?php
-                $type = "type";
-                if($entity->isLinkedAgentSpace() && $entity->entityType == 'Space')
-                    $type .= "Linked";
-
                 if ($entity->$type == '2' && $entity->tipologia_nivel3 != "") {
                     echo $entity->tipologia_nivel3;
                 } else {
