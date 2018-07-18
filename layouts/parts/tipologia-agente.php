@@ -1,9 +1,10 @@
+<?php
+    $type = "type";
+    if($entity->isLinkedAgentSpace() && $entity->entityType == 'Space')
+        $type .= "Linked";
+?>
 <?php if ($this->isEditable()): ?>
-    <?php
-        $type = "type";
-        if($entity->isLinkedAgentSpace() && $entity->entityType == 'Space')
-            $type .= "Linked";
-    ?>
+
 <div class="entity-type agent-type <?php echo ($type == 'typeLinked') ? 'entityLinked' : ''; ?>" ng-controller="AgentTypesController">
     <div class="icon icon-agent"></div>
 
