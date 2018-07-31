@@ -124,7 +124,7 @@ class Theme extends Subsite\Theme{
             $this->show_instance_only_event = 'n';
         });
 
-        $app->hook('mapasculturais.head', function() use($app,$trackingID)) {
+        $app->hook('mapasculturais.head', function() use ($app) {
             echo "<!-- Piwik -->
                 <script type='text/javascript'>
                   var _paq = _paq || [];
