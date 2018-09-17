@@ -226,6 +226,22 @@ class Theme extends Subsite\Theme{
         });
 
         $this->enqueueScript('app', 'modal-baseminc', 'js/modal-baseminc.js');
+
+        $app->hook('mapasculturais.head', function() use ($app) {
+            echo "<!-- Piwik -->
+                <script type='text/javascript'>
+                  var _paq = _paq || [];
+                  _paq.push(['trackPageView']);
+                  _paq.push(['enableLinkTracking']);
+                  (function() {
+                    var u='//analise.cultura.gov.br/';
+                    _paq.push(['setTrackerUrl', u+'piwik.php']);
+                    _paq.push(['setSiteId', '42']);
+                    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+                  })();
+                </script>";
+        }, 1000);
     }
 
     public function includeAngularEntityAssets($entity) {

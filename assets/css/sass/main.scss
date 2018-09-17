@@ -1,10 +1,10 @@
 // Child theme main
-
+@charset "UTF-8";
 @import "variables";
 @import "../../../../BaseV1/assets/css/sass/main";
 @import "overrides";
 
-// TODO - Implementar pluralização para poder alterar opportunitys para opportunities
+// TODO - Implementar pluralizacao para poder alterar opportunitys para opportunities
 
 #nav-opportunitys {
   background: #388784; }
@@ -82,10 +82,12 @@ article.opportunity .header-image, article.registration .header-image {
 }
 
 .icon-opportunity:before {
-  content: ""; }
+  content: "\e059"; 
+}
 
 .icon-project:before {
-  content: ""; }
+  content: "\e0e6"; 
+}
 
 .baseminc-modal {
   .tipologias {
