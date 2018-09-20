@@ -91,7 +91,7 @@ class Theme extends Subsite\Theme{
             $extra_wrapper_classes = 'baseminc-modal';
         });
         
-        $app->hook('mapasculturais.add_entity_modal.tipologias_agentes', function($entity, $modal_id) {
+        $app->hook('mapasculturais.add_entity_modal.tipologias_agentes', function($modal_id) {
             if (!isset($this->jsObject['agentTypesIndividuais']) && empty($this->jsObject['agentTypesIndividuais'])) {
                 $this->jsObject['agentTypesIndividuais'] = require __DIR__ . '/tipologia-agentes-individuais.php';
             }
