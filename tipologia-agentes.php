@@ -491,11 +491,14 @@ return array(
             'Governo Estrangeiro - Entidade de Promoção Cultural'
         ),
     ),
-    'Demais Agentes Culturais' => array(
-        'Mestres de Cultura' => array(
+    'Demais Agentes' => array(
+        'Demais Agentes Culturais' => array(
             'Mestre de Saberes Tradicionais (incluídos os Mestres de Cultura Popular)',
             'Mestre de Cultura de Outros Saberes',
             'Agentes de leitura'
+        ),
+        'Outros Agentes' => array(
+            'Outros Agentes'
         )
     )
 );
