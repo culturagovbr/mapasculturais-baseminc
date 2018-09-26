@@ -439,14 +439,14 @@ return array(
             'Povo cigano',
             'Comunidor de pescadores',
             'Povo de terreiro',
-            'Comunidadade ribeirinho',
+            'Comunidade ribeirinho',
             'irmandade de negros',
             'Comunidade agricultor tradicional',
             'Comunidade caiçara',
             'Comunidade faxinal',
             'Comunidade de pomeranos',
             'Comunidade pantaneira',
-            'Comudade quebradeira de coco-de-babaçu',
+            'Comunidade quebradeira de coco-de-babaçu',
             'Comunidade marisqueira',
             'Comunidade caranguejeira',
             'Comunidade agroextrativista',
@@ -491,11 +491,14 @@ return array(
             'Governo Estrangeiro - Entidade de Promoção Cultural'
         ),
     ),
-    'Demais Agentes Culturais' => array(
-        'Mestres de Cultura' => array(
+    'Demais Agentes' => array(
+        'Demais Agentes Culturais' => array(
             'Mestre de Saberes Tradicionais (incluídos os Mestres de Cultura Popular)',
             'Mestre de Cultura de Outros Saberes',
             'Agentes de leitura'
+        ),
+        'Outros Agentes' => array(
+            'Outros Agentes'
         )
     )
 );
