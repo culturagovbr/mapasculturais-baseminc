@@ -35,6 +35,11 @@ return [
         $app->auth->logout();
         
     },
+    'Atualiza tipologias de agente coletivo' => function() use ($conn) {
+        echo "\nAtualizando tipologias de agentes coletivos ... \n";
+        $conn->executeQuery("UPDATE agent_meta set value='Demais Agentes' where key='tipologia_nivel1' and value='Demais Agentes Culturais'");
+        $conn->executeQuery("UPDATE agent_meta set value='Demais Agentes Culturais' where key='tipologia_nivel2' and value='Mestres de Cultura'");
+    }
          
-] + $updates ;
+];
 
