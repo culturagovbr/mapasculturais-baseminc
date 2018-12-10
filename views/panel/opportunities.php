@@ -62,8 +62,8 @@ $opportunitiesToEvaluate = $user->opportunitiesCanBeEvaluated;
         <?php endif; ?>
     </div>
     <!-- #permitido-->
-    <!-- #avaliar-->
-    <div id="avaliar">
+    <!-- #avaliacoes-->
+    <div id="avaliacoes">
         <?php foreach($opportunitiesToEvaluate as $entity): ?>
             <?php $this->part('panel-evaluation', array('entity' => $entity)); ?>
         <?php endforeach; ?>
@@ -71,5 +71,5 @@ $opportunitiesToEvaluate = $user->opportunitiesCanBeEvaluated;
             <div class="alert info">Você não possui nenhum <?php $this->dict('entities: opportunity')?> liberado para avaliação.</div>
         <?php endif; ?>
     </div>
-    <!-- #avaliar-->
+    <!-- #avaliacoes-->
 </div>
