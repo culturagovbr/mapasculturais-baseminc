@@ -64,11 +64,6 @@ class Theme extends Subsite\Theme{
             }
         });
 
-        // $app->hook('entity(AgentMeta).new', function() use ($app){
-        //     \dump($app->getController());
-        //     die();
-        // });
-
         $app->hook('view.render(<<*>>):before', function() use($app) {
             $this->jsObject['angularAppDependencies'][] = 'entity.controller.agentTypes';
             $this->assetManager->publishAsset('img/minc_logo.png');
