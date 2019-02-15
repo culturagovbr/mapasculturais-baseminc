@@ -242,6 +242,15 @@ class Theme extends Subsite\Theme{
                   })();
                 </script>";
         }, 1000);
+
+        $app->hook('GET(opportunity.single):before', function() use($app) {
+            if (isset($this->data['id']) && $this->data['id'] == 1) {
+                $entity = $this->requestedEntity;
+                if ($entity->name === "Rede Cultura Viva") {
+                    $app->redirect('http://culturaviva.gov.br/');
+                }
+            }
+        });
     }
 
     public function includeAngularEntityAssets($entity) {
