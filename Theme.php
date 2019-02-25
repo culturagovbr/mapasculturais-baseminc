@@ -251,6 +251,12 @@ class Theme extends Subsite\Theme{
                 }
             }
         });
+
+        $app->hook("API.find(space).params", function(&$params) use ($app) {
+            if (array_key_exists("@select", $params)) {
+                $params["@select"] = str_replace(",isVerified","",$params["@select"]);
+            }
+        });
     }
 
     public function includeAngularEntityAssets($entity) {
